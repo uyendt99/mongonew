@@ -9,7 +9,8 @@
               <div class="card-header">
                 <h3 class="card-title">Company</h3>
 
-                <div class="card-tools">
+                <!-- <div class="card-tools">
+                
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
@@ -19,7 +20,9 @@
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> -->
+                  <button id="btn-add" name="btn-add" class="btn btn-primary float-right">Add</button>
+                
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -36,26 +39,43 @@
                     <tr>
                       <td>{{$item->id}}</td>
                       <td>{{$item->name}}</td>
-                      <td><a href="{{action('CompanyController@edit', $item->id)}}" class="btn btn-warning">Edit</a></td>
-                        <td>
-                        <form action="{{action('CompanyController@destroy', $item->id)}}" method="post">
-                            @csrf
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-danger" type="submit">Delete</button>
-                        </form>
-                        </td>
+                      <td>
+                      <button class="btn btn-info open-modal" value="{{$item->id}}">Edit</button>
+                      <button class="btn btn-danger delete-link" value="{{$item->id}}">Delete</button>
+                      </td>
                     </tr>
-                    @endforeach
+                  @endforeach
                   </tbody>
                 </table>
+                <div class="modal fade" id="linkEditorModal" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h4 class="modal-title" id="linkEditorModalLabel">Company</h4>
+                          </div>
+                          <div class="modal-body">
+                              <form id="modalFormData" name="modalFormData" class="form-horizontal" novalidate="">
+
+                                  <div class="form-group">
+                                      <label for="inputLink" class="control-label">Tên công ty</label>
+                                      <div class="col-sm-10">
+                                          <input type="text" class="form-control" id="company" name="name"
+                                                placeholder="Enter URL" value="">
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" id="btn-save" value="add">Save changes
+                              </button>
+                              <input type="hidden" id="company_id" name="company_id" value="0">
+                          </div>
+                      </div>
+                  </div>
+                </div>
               </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
           </div>
         </div>
-        <!-- /.row -->
-        <!-- /.row -->
         
       </div><!-- /.container-fluid -->
     </section>

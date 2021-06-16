@@ -13,6 +13,12 @@ class CompanyController extends Controller
         return view('pages.company.index',compact('companies'));
     }
 
+    public function create()
+    {
+        $company = Company::create($request->all());
+        dd($company);
+        return Response::json($company);
+    }
     public function edit($id)
     {
 
@@ -20,6 +26,8 @@ class CompanyController extends Controller
     
     public function destroy($id)
     {
-        
+        $company = Link::destroy($id);
+        dd($id);
+        return Response::json($company);
     }
 }
