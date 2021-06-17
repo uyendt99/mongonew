@@ -29,7 +29,6 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
                       <th>Tên công ty</th>
                       <th colspan="2">Action</th>
                     </tr>
@@ -37,7 +36,6 @@
                   <tbody>
                   @foreach($companies as $item)
                     <tr>
-                      <td>{{$item->id}}</td>
                       <td>{{$item->name}}</td>
                       <td>
                       <button class="btn btn-info open-modal" value="{{$item->id}}">Edit</button>

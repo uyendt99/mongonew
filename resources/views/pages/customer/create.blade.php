@@ -26,9 +26,9 @@
                   <div class="form-group">
                     <label for="name">Giới tính</label>
                     <div>
-                        <input type="radio" name="gender" value="0"> Nam<br>
-                        <input type="radio" name="gender" value="1"> Nữ<br>
-                        <input type="radio" name="gender" value="2"> Khác
+                        <input type="radio" name="gender" value="0"> Nam
+                        <input style="margin-left:20px;" type="radio" name="gender" value="1"> Nữ
+                        <input style="margin-left:20px;" type="radio" name="gender" value="2"> Khác
                     </div>
                   </div>
                   <div class="form-group">
@@ -37,7 +37,7 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Phân loại</label>
-                    <select class="form-control" id="classify-select" multiple="multiple" name="classify[]" id="">
+                    <select class="form-control multiple_select" multiple="multiple" name="classify[]" id="">
                         <option value="">Chọn loại khách hàng</option>
                         @foreach($classifys as $class)
                             <option value="{{$class}}">{{$class}}</option>
@@ -59,10 +59,18 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Nhân viên chăm sóc</label>
-                    <select multiple="multiple" name="user_ids[]" id="user-select" class="form-control">
+                    <select multiple="multiple" name="user_ids[]" id="user-select" class="form-control multiple_select">
                         <option value="">Chọn nhân viên chăm sóc</option>
                         @foreach($users as $user)
                             <option value="{{$user->username}}">{{$user->name}}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Đơn hàng</label>
+                    <select multiple="multiple" name="order_ids[]" class="form-control multiple_select">
+                        @foreach($orders as $order)
+                            <option value="{{$order->id}}">{{$order->name}}</option>
                         @endforeach
                     </select>
                   </div>

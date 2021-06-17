@@ -8,11 +8,11 @@
             <!-- jquery validation -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Thêm khách hàng mới</h3>
+                <h3 class="card-title">Cập nhật thông tin khách hàng</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" action="{{route('customer.update',$customer->id)}}" method="PATH">
+              <form id="quickForm" action="{{route('customer.update',$customer->id)}}" method="POST">
               @csrf
                 <div class="card-body">
                   <div class="form-group">
@@ -21,7 +21,7 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Tuổi</label>
-                    <input type="number" name="age" class="form-control" placeholder="Enter tuổi" value="{{$customer->age}}">
+                    <input type="number" name="age" class="form-control" placeholder="Enter tuổi" value="{{old('age',$customer->age)}}">
                   </div>
                   <div class="form-group">
                     <label for="name">Giới tính</label>
@@ -33,16 +33,13 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Địa chỉ</label>
-                    <input type="text" name="address" class="form-control" placeholder="Enter địa chỉ" value="{{$customer->address}}">
+                    <input type="text" name="address" class="form-control" placeholder="Enter địa chỉ" value="{{old('address',$customer->address)}}">
                   </div>
                   <div class="form-group">
                     <label for="name">Phân loại</label>
                     <select class="form-control" id="classify-select" multiple="multiple" name="classify[]" id="">
-                        <option value="">Chọn loại khách hàng</option>
-                        @foreach($classifys as $class)
-                        <option value="{{$class}}"}} selected="selected" >
-                            {{$class}}
-                        </option>
+                        @foreach($classifys as $item)
+                        <option value="{{$item}}" {{in_array($item, $customer->classify) ? "selected" : ''}} >{{$item}}</option>
                         @endforeach
                     </select>
                   </div>
@@ -51,7 +48,7 @@
                         <select class="form-control" name="company_id" id="">
                             <option value="">Chọn nơi làm việc</option>
                             @foreach($companies as $com)
-                                <option value="{{$com->id}}">{{$com->name}}</option>
+                                <option value="{{$com->id}}" {{($customer->company_id === $com->id) ? 'Selected' : ''}}>{{$com->name}}</option>
                             @endforeach
                         </select>
                   </div>
@@ -64,7 +61,7 @@
                     <select multiple="multiple" name="user_ids[]" id="user-select" class="form-control">
                         <option value="">Chọn nhân viên chăm sóc</option>
                         @foreach($users as $key => $user)
-                            <option value="{{$user->username}}" selected="selected">{{$user->name}}</option>
+                            <option value="{{$user->username}}" {{in_array($user->username, $customer->user_ids) ? "selected" : ''}} >{{$user->name}}</option>
                         @endforeach
                     </select>
                   </div>
