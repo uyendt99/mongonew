@@ -1,0 +1,7 @@
+.form_validate .error{
+    color: red;
+    font-weight: 400 !important;
+}
+.form_validate input.error{
+    border: 1px solid red;
+}

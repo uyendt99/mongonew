@@ -21,6 +21,7 @@ class User extends Eloquent
     protected $table = 'users';
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];

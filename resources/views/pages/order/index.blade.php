@@ -15,23 +15,13 @@
                <br>
                @endif
                 <h3 class="card-title">Order</h3>
-
-                <!-- <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div> -->
-                <a href="{{ route('order.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right">Add</a>
+                <a href="{{ route('order.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Add</a>
+                <a class="btn btn-warning float-right" href="{{ route('export.order') }}" style="margin-left:10px;">Export</a>
+                <button type="submit"  class="btn btn-success float-right" data-toggle="modal" data-target="#myModalHorizontal">Import</button>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+              <div class="card-body">
+                <table class="table">
                   <thead>
                     <tr>
                       <th>Tên đơn hàng</th>
@@ -58,9 +48,29 @@
                   </tbody>
                 </table>
               </div>
+              <div class="card-footer clearfix">
+              {{ $orders->links('pagination::bootstrap-4') }}
+              </div>
             </div>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
+    <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+                  <!-- Modal Body -->
+            <div class="modal-body">
+                <div>
+                    Import Order
+                </div>
+                <form action="{{ route('import.order') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file" class="form-control">
+                    <br>
+                    <button class="btn btn-success">Import</button>
+                </form> 
+            </div>
+        </div>
+    </div>
 @endsection

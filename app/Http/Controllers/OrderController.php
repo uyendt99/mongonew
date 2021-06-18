@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\OrdersExport;
+use App\Imports\OrdersImport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Order;
 
 class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::paginate(5);
         return view('pages.order.index',compact('orders'));
     }
 
@@ -46,5 +49,22 @@ class OrderController extends Controller
     {
         $order = Order::destroy($id);
         return redirect('/order')->with('success',"Xóa đơn hàng thành công");
+    }
+
+    public function importExportView()
+    {
+       return view('import');
+    }
+     
+    public function export() 
+    {
+        return Excel::download(new OrdersExport, 'orders.xlsx')->withHeadings("ID","Tên đơn hàng","Tổng tiền");
+    }
+     
+    public function import() 
+    {
+        Excel::import(new OrdersImport,request()->file('file'));
+             
+        return back();
     }
 }

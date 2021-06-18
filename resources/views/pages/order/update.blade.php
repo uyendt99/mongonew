@@ -12,7 +12,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" action="{{route('order.update',$order->id)}}" method="POST">
+              <form id="updateOrder" class="form_validate" action="{{route('order.update',$order->id)}}" method="POST">
               @csrf
                 <div class="card-body">
                   <div class="form-group">

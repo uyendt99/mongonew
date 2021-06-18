@@ -12,20 +12,24 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" action="{{route('customer.store')}}" method="POST">
+              <form id="createCustomer" class="form_validate" action="{{route('customer.store')}}" method="POST">
               @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Tên khách hàng</label>
                     <input type="text" name="name" class="form-control" placeholder="Enter tên">
+                    @if( $errors->has('name'))
+                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @endif
+                    
                   </div>
                   <div class="form-group">
                     <label for="name">Tuổi</label>
-                    <input type="number" name="age" class="form-control" placeholder="Enter tuổi">
+                    <input type="text" name="age" class="form-control" placeholder="Enter tuổi">
                   </div>
                   <div class="form-group">
                     <label for="name">Giới tính</label>
-                    <div>
+                    <div class="radio_gender">
                         <input type="radio" name="gender" value="0"> Nam
                         <input style="margin-left:20px;" type="radio" name="gender" value="1"> Nữ
                         <input style="margin-left:20px;" type="radio" name="gender" value="2"> Khác
@@ -38,7 +42,6 @@
                   <div class="form-group">
                     <label for="name">Phân loại</label>
                     <select class="form-control multiple_select" multiple="multiple" name="classify[]" id="">
-                        <option value="">Chọn loại khách hàng</option>
                         @foreach($classifys as $class)
                             <option value="{{$class}}">{{$class}}</option>
                         @endforeach
@@ -60,9 +63,8 @@
                   <div class="form-group">
                     <label for="name">Nhân viên chăm sóc</label>
                     <select multiple="multiple" name="user_ids[]" id="user-select" class="form-control multiple_select">
-                        <option value="">Chọn nhân viên chăm sóc</option>
                         @foreach($users as $user)
-                            <option value="{{$user->username}}">{{$user->name}}</option>
+                            <option value="{{$user->id}}">{{$user->name}}</option>
                         @endforeach
                     </select>
                   </div>

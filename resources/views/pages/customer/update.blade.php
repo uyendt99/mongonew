@@ -12,7 +12,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" action="{{route('customer.update',$customer->id)}}" method="POST">
+              <form id="updateCustomer" class="form_validate" action="{{route('customer.update',$customer->id)}}" method="POST">
               @csrf
                 <div class="card-body">
                   <div class="form-group">
@@ -37,7 +37,7 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Phân loại</label>
-                    <select class="form-control" id="classify-select" multiple="multiple" name="classify[]" id="">
+                    <select class="form-control multiple_select" id="classify-select" multiple="multiple" name="classify[]" id="">
                         @foreach($classifys as $item)
                         <option value="{{$item}}" {{in_array($item, $customer->classify) ? "selected" : ''}} >{{$item}}</option>
                         @endforeach
@@ -58,10 +58,17 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Nhân viên chăm sóc</label>
-                    <select multiple="multiple" name="user_ids[]" id="user-select" class="form-control">
-                        <option value="">Chọn nhân viên chăm sóc</option>
-                        @foreach($users as $key => $user)
-                            <option value="{{$user->username}}" {{in_array($user->username, $customer->user_ids) ? "selected" : ''}} >{{$user->name}}</option>
+                    <select multiple="multiple" name="user_ids[]" id="user-select" class="form-control multiple_select">
+                        @foreach($users as $user)
+                            <option value="{{$user->id}}" {{in_array($user->id, $customer->user_ids) ? "selected" : ''}} >{{$user->name}}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Đơn hàng</label>
+                    <select multiple="multiple" name="order_ids[]" class="form-control multiple_select">
+                        @foreach($orders as $order)
+                            <option value="{{$order->id}}" {{in_array($order->id, $customer->order_ids) ? "selected" : ''}}>{{$order->name}}</option>
                         @endforeach
                     </select>
                   </div>
