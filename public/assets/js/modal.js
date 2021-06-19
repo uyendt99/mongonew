@@ -203,3 +203,51 @@ if ($("#updateCustomer").length > 0){
          }
     })
 }
+if ($("#register").length > 0) {
+    $("#register").validate({
+
+        rules: {
+            name: {
+                required: true,
+            },
+
+            username: {
+                required: true,
+            },
+            email: {
+                required: true,
+                email:true
+            },
+            password: {
+                required: true,
+                minlength:6
+            },
+            cfm_password: {
+                required: true,
+                equalTo: "#password"
+            }
+        },
+        messages: {
+
+            name: {
+                required: "Vui lòng nhập tên",
+            },
+            username: {
+                required: "Vui lòng nhập tên đăng nhập",
+            },
+            email: {
+                required: "Vui lòng nhập email",
+                email: "Định dạng email không đúng"
+            },
+            password: {
+                required: "Vui lòng nhập mật khẩu",
+                minlength: "Password ít nhất 6 ký tự"
+            },
+            cfm_password: {
+                required: "Vui lòng xác nhận mật khẩu",
+                equalTo: "Xác nhận mật khẩu không đúng"
+            }
+
+        },
+    })
+}

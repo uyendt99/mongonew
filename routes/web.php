@@ -17,6 +17,20 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
+Route::get('login', 'Auth\LoginController@getLogin')->name('login');
+Route::post('login', 'Auth\LoginController@postLogin')->name('login.store');
+Route::get('register', 'Auth\RegisterController@getRegister')->name('register');
+Route::post('register','Auth\RegisterController@postRegister')->name('register.store');
+
+Route::group(['prefix' => 'company', 'middleware' => 'auth'], function() {
+    Route::get('/','CompanyController@index')->name('company');
+    Route::get('/create','CompanyController@create')->name('company.create');
+    Route::post('/create','CompanyController@store')->name('company.store');
+    Route::get('/edit/{id}','CompanyController@edit');
+    Route::post('/edit/{id}','CompanyController@update')->name('company.update');
+    Route::delete('/{id}','CompanyController@destroy');
+});
+
 Route::get('/company','CompanyController@index')->name('company');
 Route::get('/company/create','CompanyController@create')->name('company.create');
 Route::post('/company/create','CompanyController@store')->name('company.store');

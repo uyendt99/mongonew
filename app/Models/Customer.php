@@ -17,4 +17,14 @@ class Customer extends Eloquent
     {
         return $this->belongsTo(Company::class,'company_id');
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class,'order_ids');
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class,'user_ids');
+    }
 }

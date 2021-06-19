@@ -13,5 +13,9 @@ class Order extends Eloquent
     protected $connection = 'mongodb';
     protected $table = 'orders';
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'order_ids');
+    }
 
 }
