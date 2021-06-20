@@ -9,21 +9,15 @@ use App\Models\User;
 use App\Models\Order;
 use App\Exports\CustomersExport;
 use App\Imports\CustomersImport;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::paginate(5);
-        foreach($customers as $customer){
-            $user_id = $customer->user_ids;
-            $users = User::whereIn('_id',$user_id)->get();
-            //dd($user);
-        }
-        
-        //dd($user_id);
-        return view('pages.customer.index',compact('customers','users'));
+        $customers = Customer::with('users', 'company', 'orders')->paginate(5);
+        return view('pages.customer.index',compact('customers'));
     }
 
     public function create()
@@ -32,34 +26,46 @@ class CustomerController extends Controller
         $users = User::all();
         $orders = Order::all();
         $classifys = array('Khách hàng mới','Khách hàng tiềm năng','Đã mua hàng');
-        
+
         return view('pages.customer.create',compact('companies','users','classifys','orders'));
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required',
-            'age' => 'required|number|min:1',
-            'gender' => 'required',
-            'address' => 'required|string',
-            'classify[]' => 'required',
-            'company_id' => 'required',
-            'job' => 'required',
-            'user_ids[]' => 'required'
-        ]);
-
+        // $validated = $request->validate([
+        //     'name' => 'required',
+        //     'age' => 'required|number|min:1',
+        //     'gender' => 'required',
+        //     'address' => 'required|string',
+        //     'classify[]' => 'required',
+        //     'company_id' => 'required',
+        //     'job' => 'required',
+        //     'user_ids[]' => 'required'
+        // ]);
+        // DB::connection()->enableQueryLog();
+        $user_ids = $request->get('user_ids');
+        $order_ids = $request->get('order_ids');
         $customer=new Customer();
         $customer->name = $request->get('name');
         $customer->age = $request->get('age');
-        $customer->gender = $request->get('gender');        
+        $customer->gender = $request->get('gender');
         $customer->address = $request->get('address');
         $customer->classify = $request->get('classify');
         $customer->company_id = $request->get('company_id');
         $customer->job = $request->get('job');
-        $customer->user_ids = $request->get('user_ids');
-        $customer->order_ids = $request->get('order_ids');
         $customer->save();
+        // foreach (User::whereIn('_id', $user_ids) as $user_id) {
+        //     $customer->users()->save($user_id);
+        // }
+        // foreach ($order_ids as $order_id) {
+        //     $customer->orders()->save($order_id);
+        // }
+        // dd($customer);
+        // $customer->users()->saveMany();
+        // $customer->orders()->saveMany(Order::whereIn('_id', $order_ids));
+        // $customer->save();
+        // $queries = DB::getQueryLog();
+        // dd('save done',$customer, $queries);
         return redirect('/customer')->with('success','Thêm khách hàng thành công');
     }
 
@@ -82,13 +88,13 @@ class CustomerController extends Controller
         $orders = Order::all();
         return view('pages.customer.update',compact('customer','id','classifys','companies','users','orders'));
     }
-    
+
     public function update(Request $request, $id)
     {
         $customer = Customer::find($id);
         $customer->name = $request->get('name');
         $customer->age = $request->get('age');
-        $customer->gender = $request->get('gender');        
+        $customer->gender = $request->get('gender');
         $customer->address = $request->get('address');
         $customer->classify = $request->get('classify');
         $customer->company_id = $request->get('company_id');
@@ -105,15 +111,15 @@ class CustomerController extends Controller
         return redirect('/customer')->with('success',"Xóa khách hàng thành công");
     }
 
-    public function export() 
+    public function export()
     {
         return Excel::download(new CustomersExport, 'customers.xlsx');
     }
-     
-    public function import() 
+
+    public function import()
     {
         Excel::import(new CustomersImport,request()->file('file'));
-             
+
         return back();
     }
 }

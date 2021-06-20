@@ -251,3 +251,30 @@ if ($("#register").length > 0) {
         },
     })
 }
+if ($("#login").length > 0) {
+    $("#login").validate({
+
+        rules: {
+            email: {
+                required: true,
+                email:true
+            },
+            password: {
+                required: true,
+                minlength:6
+            }
+        },
+        messages: {
+
+            email: {
+                required: "Vui lòng nhập email",
+                email: "Định dạng email không đúng"
+            },
+            password: {
+                required: "Vui lòng nhập mật khẩu",
+                minlength: "Password ít nhất 6 ký tự"
+            }
+
+        },
+    })
+}

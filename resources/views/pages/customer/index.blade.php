@@ -50,9 +50,7 @@
                       <td>{{$rs->company->name}}</td>
                       <td>{{$rs->job}}</td>
                       <td>
-                          @foreach($users as $user)
-                            {{$user->username}}
-                          @endforeach
+                          
                       </td>
                       <td>
                       <td><a href="{{route('customer.edit', $rs->id)}}" class="btn btn-warning">Edit</a></td>

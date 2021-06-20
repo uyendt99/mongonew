@@ -20,11 +20,11 @@ class Customer extends Eloquent
 
     public function orders()
     {
-        return $this->hasMany(Order::class,'order_ids');
+        return $this->hasMany(Order::class);
     }
 
     public function users()
     {
-        return $this->hasMany(User::class,'user_ids');
+        return $this->hasMany(User::class);
     }
 }

@@ -18,22 +18,22 @@ class RegisterController extends Controller
 
     public function postRegister(Request $request)
     {
-        $user=new User();
-        $user->name = $request->get('name');
-        $user->username = $request->get('username');
-        $user->email = $request->get('email');        
-        $user->password = Hash::make($request->get('password'));
-        //dd($user);
-        $user->save();
-        // $allRequest  = $request->all();	
-        // $validator = $this->validator($allRequest);
+        // $user=new User();
+        // $user->name = $request->get('name');
+        // $user->username = $request->get('username');
+        // $user->email = $request->get('email');        
+        // $user->password = Hash::make($request->get('password'));
+        // //dd($user);
+        // $user->save();
+        $allRequest  = $request->all();	
+        $validator = $this->validator($allRequest);
     
-        // if ($validator->fails()) {
-        //     // Dữ liệu vào không thỏa điều kiện sẽ thông báo lỗi
-        //     return redirect('register')->withErrors($validator)->withInput();
-        // } else {   
+        if ($validator->fails()) {
+            // Dữ liệu vào không thỏa điều kiện sẽ thông báo lỗi
+            return redirect('register')->withErrors($validator)->withInput();
+        } else {   
             // Dữ liệu vào hợp lệ sẽ thực hiện tạo người dùng dưới csdl
-            if( $user->save()) {
+            if( $this->create($allRequest)) {
                 // Insert thành công sẽ hiển thị thông báo
                 Session::flash('success', 'Đăng ký thành viên thành công!');
                 return redirect('register');
@@ -42,7 +42,7 @@ class RegisterController extends Controller
                 Session::flash('error', 'Đăng ký thành viên thất bại!');
                 return redirect('register');
             }
-        // }
+        }
     }
     protected function create(array $data)
     {
@@ -50,7 +50,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'username' => $data['username'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
         ]);
     }
     protected function validator(array $data)
@@ -59,7 +59,7 @@ class RegisterController extends Controller
             [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6|confirmed',
+                'password' => 'required|string|min:6|required_with:cfm_password|same:cfm_password',
             ],
             [
                 'name.required' => 'Họ và tên là trường bắt buộc',

@@ -8,8 +8,11 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+        <div class="info" style="display:inline-flex">
+        @if(Auth::check())
+          <a href="#" class="d-block">{{Auth::user()->name}}</a><span style="color:#fff; padding: 0 10px;"> | </span><a href="{{route('logout')}}">Đăng xuất</a>
+        @endif
+        
         </div>
       </div>
 

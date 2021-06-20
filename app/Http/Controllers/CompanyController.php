@@ -19,9 +19,14 @@ class CompanyController extends Controller
 
     public function create()
     {
-        $company = Company::create($request->all());
-        dd($company);
-        return Response::json($company);
+       return view('pages.company.create');
+    }
+    public function store(Request $request)
+    {
+        $order = new Company();
+        $order->name = $request->get('name');
+        $order->save();
+        return redirect('/company');
     }
     public function edit($id)
     {
@@ -31,7 +36,6 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         $company = Link::destroy($id);
-        dd($id);
         return Response::json($company);
     }
 }

@@ -58,7 +58,7 @@ class OrderController extends Controller
      
     public function export() 
     {
-        return Excel::download(new OrdersExport, 'orders.xlsx')->withHeadings("ID","Tên đơn hàng","Tổng tiền");
+        return Excel::download(new OrdersExport, 'orders.xlsx');
     }
      
     public function import() 

@@ -21,6 +21,7 @@ Route::get('login', 'Auth\LoginController@getLogin')->name('login');
 Route::post('login', 'Auth\LoginController@postLogin')->name('login.store');
 Route::get('register', 'Auth\RegisterController@getRegister')->name('register');
 Route::post('register','Auth\RegisterController@postRegister')->name('register.store');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['prefix' => 'company', 'middleware' => 'auth'], function() {
     Route::get('/','CompanyController@index')->name('company');
