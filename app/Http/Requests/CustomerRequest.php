@@ -25,7 +25,7 @@ class CustomerRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'age'  => 'required|number|min:1',
+            'age'  => 'required|min:1',
             'gender' => 'required',
             'address' => 'required|string',
             'classify[]' => 'required',

@@ -64,3 +64,12 @@ Route::post('/user/create','UserController@store')->name('user.store');
 Route::get('/user/edit/{id}','UserController@edit')->name('user.edit');
 Route::post('/user/edit/{id}','UserController@update')->name('user.update');
 Route::delete('/user/{id}','UserController@destroy')->name('user.delete');
+
+Route::get('/role','RoleController@index')->name('role');
+Route::get('/role/create','RoleController@create')->name('role.create');
+Route::post('/role/create','RoleController@store')->name('role.store');
+
+Route::get('/permission','PermissionController@index')->name('permission');
+Route::get('/permission/create','PermissionController@create')->name('permission.create');
+Route::post('/permission/create','PermissionController@store')->name('permission.store');
+

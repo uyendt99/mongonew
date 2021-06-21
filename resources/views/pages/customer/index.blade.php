@@ -20,6 +20,7 @@
                 <button type="submit"  class="btn btn-success float-right" data-toggle="modal" data-target="#myModalHorizontal">Import</button>
               </div>
               <!-- /.card-header -->
+              @if(count($customers) > 0)
               <div class="card-body">
                 <table class="table">
                   <thead>
@@ -32,7 +33,7 @@
                     <th>Nơi làm việc</th>
                     <th>Nghề nghiệp</th>
                     <th>Nhân viên chăm sóc</th>
-                    <th colspan="3">Hành động</th>
+                    <th style="text-align: center;" colspan="3">Hành động</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -50,7 +51,9 @@
                       <td>{{$rs->company->name}}</td>
                       <td>{{$rs->job}}</td>
                       <td>
-                          
+                          @foreach($rs->users as $user)
+                            <p>{{$user->name}}</p>
+                          @endforeach
                       </td>
                       <td>
                       <td><a href="{{route('customer.edit', $rs->id)}}" class="btn btn-warning">Edit</a></td>
@@ -70,6 +73,11 @@
               <div class="card-footer clearfix">
               {{ $customers->links('pagination::bootstrap-4') }}
               </div>
+              @else
+              <div>
+                <p style="text-align: center;">Không có dữ liệu</p>
+              </div>
+              @endif
             </div>
           </div>
         </div>

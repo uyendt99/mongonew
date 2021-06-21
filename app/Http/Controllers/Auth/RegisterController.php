@@ -18,13 +18,7 @@ class RegisterController extends Controller
 
     public function postRegister(Request $request)
     {
-        // $user=new User();
-        // $user->name = $request->get('name');
-        // $user->username = $request->get('username');
-        // $user->email = $request->get('email');        
-        // $user->password = Hash::make($request->get('password'));
-        // //dd($user);
-        // $user->save();
+        
         $allRequest  = $request->all();	
         $validator = $this->validator($allRequest);
     

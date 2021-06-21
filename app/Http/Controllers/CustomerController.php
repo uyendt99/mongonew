@@ -11,12 +11,13 @@ use App\Exports\CustomersExport;
 use App\Imports\CustomersImport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::with('users', 'company', 'orders')->paginate(5);
+        $customers = Customer::with('company')->paginate(5);
         return view('pages.customer.index',compact('customers'));
     }
 
@@ -32,17 +33,6 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
-        // $validated = $request->validate([
-        //     'name' => 'required',
-        //     'age' => 'required|number|min:1',
-        //     'gender' => 'required',
-        //     'address' => 'required|string',
-        //     'classify[]' => 'required',
-        //     'company_id' => 'required',
-        //     'job' => 'required',
-        //     'user_ids[]' => 'required'
-        // ]);
-        // DB::connection()->enableQueryLog();
         $user_ids = $request->get('user_ids');
         $order_ids = $request->get('order_ids');
         $customer=new Customer();
@@ -54,24 +44,14 @@ class CustomerController extends Controller
         $customer->company_id = $request->get('company_id');
         $customer->job = $request->get('job');
         $customer->save();
-        // foreach (User::whereIn('_id', $user_ids) as $user_id) {
-        //     $customer->users()->save($user_id);
-        // }
-        // foreach ($order_ids as $order_id) {
-        //     $customer->orders()->save($order_id);
-        // }
-        // dd($customer);
-        // $customer->users()->saveMany();
-        // $customer->orders()->saveMany(Order::whereIn('_id', $order_ids));
-        // $customer->save();
-        // $queries = DB::getQueryLog();
-        // dd('save done',$customer, $queries);
+        $customer->users()->attach($user_ids);
+        $customer->orders()->attach($order_ids);
         return redirect('/customer')->with('success','Thêm khách hàng thành công');
     }
 
     public function show($id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::findOrFail($id);
         $order = $customer->order_ids;
         $orders = Order::whereIn('_id',$order)->paginate(1);
         $user_id = $customer->user_ids;
@@ -81,7 +61,7 @@ class CustomerController extends Controller
 
     public function edit($id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::findOrFail($id);
         $companies = Company::all();
         $classifys = array('Khách hàng mới','Khách hàng tiềm năng','Đã mua hàng');
         $users = User::all();
@@ -91,7 +71,7 @@ class CustomerController extends Controller
 
     public function update(Request $request, $id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::findOrFail($id);
         $customer->name = $request->get('name');
         $customer->age = $request->get('age');
         $customer->gender = $request->get('gender');
@@ -99,9 +79,12 @@ class CustomerController extends Controller
         $customer->classify = $request->get('classify');
         $customer->company_id = $request->get('company_id');
         $customer->job = $request->get('job');
-        $customer->user_ids = $request->get('user_ids');
-        $customer->order_ids = $request->get('order_ids');
-        $customer->save();
+        $customer->users()->detach($customer->user_ids);
+        $customer->orders()->detach($customer->order_ids);
+        $customer->users()->attach($request->get('user_ids'));
+        $customer->orders()->attach($request->get('order_ids'));
+        $customer->update();
+        
         return redirect('/customer')->with('success',"Cập nhật thông tin khách hàng thành công");
     }
 

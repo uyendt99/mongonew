@@ -16,10 +16,7 @@ class CustomersExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        DB::connection()->enableQueryLog();
-        $customers = Customer::with('company','orders','users')->get();
-        $queries = DB::getQueryLog();
-        // dd($queries);
+        $customers = Customer::with('company')->get();
         $data = [];
         foreach ($customers as $customer) {
             $data[] = [
@@ -31,6 +28,7 @@ class CustomersExport implements FromCollection, WithHeadings
                 $customer->company->name,
                 $customer->job,
                 implode(',', $customer->users->pluck('name')->toArray()),
+                implode(',', $customer->orders->pluck('name')->toArray()),
 
             ];
         }
@@ -47,6 +45,7 @@ class CustomersExport implements FromCollection, WithHeadings
             "Nơi làm việc",
             "Nghề nghiệp",
             "Nhân viên chăm sóc",
+            "Đơn hàng"
         ];
     }
 }

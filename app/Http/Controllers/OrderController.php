@@ -32,13 +32,13 @@ class OrderController extends Controller
 
     public function edit($id)
     {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
         return view('pages.order.update',compact('order'));
     }
 
     public function update(Request $request, $id)
     {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
         $order->name = $request->get('name');
         $order->total_price = $request->get('total_price');
         $order->save();
@@ -61,9 +61,12 @@ class OrderController extends Controller
         return Excel::download(new OrdersExport, 'orders.xlsx');
     }
      
-    public function import() 
+    public function import(Request $request) 
     {
-        Excel::import(new OrdersImport,request()->file('file'));
+        $file = $request->file('file');
+        $import = new OrdersImport;
+        $import->import($file);
+        // Excel::import(new OrdersImport,request()->file('file'));
              
         return back();
     }
