@@ -15,7 +15,7 @@
                <br>
                @endif
                 <h3 class="card-title">User</h3>
-                <a href="{{ route('order.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right">Add</a>
+                <a href="{{ route('user.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right">Add</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -26,7 +26,7 @@
                       <th>Tên đăng nhập</th>
                       <th>Email</th>
                       <th>Vai trò</th>
-                      <th colspan="3">Action</th>
+                      <th colspan="2">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -35,7 +35,11 @@
                       <td>{{$user->name}}</td>
                       <td>{{$user->username}}</td>
                       <td>{{$user->email}}</td>
-                      <td></td>
+                      <td>
+                          @foreach($user->roles as $role)
+                            <span style="border-radius:2px;background: green;color:#fff;padding:3px 5px;">{{$role->name}}</span>
+                          @endforeach
+                      </td>
                       <td><a href="{{route('user.edit', $user->id)}}" class="btn btn-warning">Edit</a></td>
                       <td>
                         <form action="{{route('user.delete', $user->id)}}" method="post">

@@ -68,8 +68,14 @@ Route::delete('/user/{id}','UserController@destroy')->name('user.delete');
 Route::get('/role','RoleController@index')->name('role');
 Route::get('/role/create','RoleController@create')->name('role.create');
 Route::post('/role/create','RoleController@store')->name('role.store');
+Route::get('/role/edit/{id}','RoleController@edit')->name('role.edit');
+Route::post('/role/edit/{id}','RoleController@update')->name('role.update');
+Route::delete('/role/{id}','RoleController@destroy')->name('role.delete');
 
 Route::get('/permission','PermissionController@index')->name('permission');
 Route::get('/permission/create','PermissionController@create')->name('permission.create');
 Route::post('/permission/create','PermissionController@store')->name('permission.store');
+Route::get('/permission/edit/{id}','PermissionController@edit')->name('permission.edit');
+Route::post('/permission/edit/{id}','PermissionController@update')->name('permission.update');
+Route::delete('/permission/{id}','PermissionController@destroy')->name('permission.delete');
 

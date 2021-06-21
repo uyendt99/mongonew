@@ -15,7 +15,7 @@
                <br>
                @endif
                 <h3 class="card-title">Order</h3>
-                <a href="{{ route('role.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Add</a>
+                <a href="{{ route('permission.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Add</a>
                 <a class="btn btn-warning float-right" href="{{ route('export.order') }}" style="margin-left:10px;">Export</a>
                 <button type="submit"  class="btn btn-success float-right" data-toggle="modal" data-target="#myModalHorizontal">Import</button>
               </div>
@@ -24,23 +24,18 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Tên vai tròg</th>
-                      <th>Quyền</th>
-                      <th colspan="2">Action</th>
+                      <th>Tên quyền</th>
+                      <th colspan="3">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                  @foreach($roles as $role)
+                  @foreach($permissions as $per)
                     <tr>
-                      <td>{{$role->name}}</td>
+                      <td>{{$per->name}}</td>
+
+                      <td><a href="{{route('permission.edit', $per->id)}}" class="btn btn-warning">Edit</a></td>
                       <td>
-                        @foreach($role->permissions as $per)
-                        <span style="border-radius:2px;background: green;color:#fff;padding:3px 5px;">{{$per->name}}</span>
-                        @endforeach
-                      </td>
-                      <td><a href="{{route('role.edit', $role->id)}}" class="btn btn-warning">Edit</a></td>
-                      <td>
-                        <form action="{{route('role.delete', $role->id)}}" method="post">
+                        <form action="{{route('permission.delete', $per->id)}}" method="post">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="btn btn-danger show_confirm" type="submit">Delete</button>
@@ -52,7 +47,7 @@
                 </table>
               </div>
               <div class="card-footer clearfix">
-              {{ $roles->links('pagination::bootstrap-4') }}
+              {{ $permissions->links('pagination::bootstrap-4') }}
               </div>
             </div>
           </div>

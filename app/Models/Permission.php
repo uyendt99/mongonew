@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class Permission extends Model
+class Permission extends Eloquent
 {
     use HasFactory;
     protected $connection = 'mongodb';
@@ -13,6 +14,6 @@ class Permission extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(User::class,null, 'permission_ids','role_ids');
+        return $this->belongsToMany(Role::class,null, 'permission_ids','role_ids');
     }
 }

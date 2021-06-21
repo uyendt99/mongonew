@@ -21,7 +21,7 @@
                     @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
-                    
+
                   </div>
                   <div class="form-group">
                     <label for="name">Tên đăng nhập</label>
@@ -32,13 +32,15 @@
                     <input type="text" name="email" class="form-control" placeholder="Enter email">
                   </div>
                   <div class="form-group">
-                    <label for="name">Email</label>
+                    <label for="name">Password</label>
                     <input type="text" name="password" class="form-control" placeholder="Enter password">
                   </div>
                   <div class="form-group">
                     <label for="name">Vai trò</label>
-                    <select class="form-control multiple_select" multiple="multiple" name="role[]" id="">
-                        
+                    <select multiple="multiple" name="role_ids[]" id="user-select" class="form-control multiple_select">
+                        @foreach($roles as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
+                        @endforeach
                     </select>
                   </div>
                 </div>
@@ -61,4 +63,3 @@
       </div><!-- /.container-fluid -->
     </section>
     @endsection
-        
