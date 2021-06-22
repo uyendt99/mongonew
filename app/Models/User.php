@@ -55,4 +55,5 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class,null,'user_ids','role_ids');
     }
+
 }

@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<section class="content">
       <div class="container-fluid">
         <!-- /.row -->
         <div class="row">
@@ -55,7 +54,6 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    </section>
     <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -67,6 +65,9 @@
                 <form action="{{ route('import.order') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="file" class="form-control">
+                    @if( $errors->has('file'))
+                    <span class="text-danger">{{ $errors->first('file') }}</span>
+                    @endif
                     <br>
                     <button class="btn btn-success">Import</button>
                 </form> 

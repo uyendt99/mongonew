@@ -1,6 +1,11 @@
 @extends('layouts.app')
+@section('breadcrumb')
+            <ol class="breadcrumb float-sm-left">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Quản lý tài khoản</li>
+            </ol>
+@endsection
 @section('content')
-<section class="content">
       <div class="container-fluid">
         <!-- /.row -->
         <div class="row">
@@ -60,5 +65,4 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    </section>
 @endsection

@@ -10,6 +10,11 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $orders = Order::paginate(5);
@@ -61,13 +66,10 @@ class OrderController extends Controller
         return Excel::download(new OrdersExport, 'orders.xlsx');
     }
      
-    public function import(Request $request) 
+    public function import() 
     {
-        $file = $request->file('file');
-        $import = new OrdersImport;
-        $import->import($file);
-        // Excel::import(new OrdersImport,request()->file('file'));
-             
+        Excel::import(new OrdersImport,request()->file('file'));
+           
         return back();
     }
 }

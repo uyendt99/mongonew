@@ -11,19 +11,19 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="createRole" class="form_validate" action="{{route('role.store')}}" method="POST">
+              <form id="updateRole" class="form_validate" action="{{route('role.update',$role->id)}}" method="POST">
               @csrf
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">Tên vai trò</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter tên vai trò">
+                        <input type="text" name="name" value="{{old('name',$role->name)}}" class="form-control" placeholder="Enter tên vai trò">
                         <span class="text-danger">{{ $errors->first('name') }}</span>
                     </div>
                     <div class="form-group">
                         <label for="name">Quyền</label>
                         <select multiple="multiple" name="permission_ids[]" id="user-select" class="form-control multiple_select">
                             @foreach($permissions as $per)
-                                <option value="{{$per->id}}">{{$per->name}}</option>
+                                <option value="{{$per->id}}" {{in_array($per->id, $role->permission_ids) ? "selected" : ''}}>{{$per->name}}</option>
                             @endforeach
                         </select>
                     </div>

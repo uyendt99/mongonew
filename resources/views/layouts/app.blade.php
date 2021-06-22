@@ -16,21 +16,28 @@
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-  <!-- Navbar -->
-  @include('partials.header')
-  <!-- /.navbar -->
  
   <!-- Main Sidebar Container -->
   @include('partials.sidebar')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    
-    @include('partials.breadcrumb')
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+            @yield('breadcrumb')
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">
       <!-- Default box -->
       @yield('content')
+
     </section>
     <!-- /.content -->
   </div>

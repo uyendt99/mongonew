@@ -144,7 +144,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('role.create')}}" class="nav-link">
+                    <a href="{{route('role')}}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Danh sách</p>
                     </a>
@@ -161,7 +161,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="../examples/login-v2.html" class="nav-link">
+                    <a href="{{route('permission')}}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Danh sách</p>
                     </a>

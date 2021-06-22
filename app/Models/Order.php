@@ -13,6 +13,11 @@ class Order extends Eloquent
     protected $connection = 'mongodb';
     protected $table = 'orders';
 
+    protected $fillable = [
+        'name',
+        'total_price'
+    ];
+
     public function customers()
     {
         return $this->belongsToMany(Customer::class,null,'order_ids','customer_ids');

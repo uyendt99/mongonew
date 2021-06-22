@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<section class="content">
       <div class="container-fluid">
         <!-- /.row -->
         <div class="row">
@@ -82,7 +81,6 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    </section>
     <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">

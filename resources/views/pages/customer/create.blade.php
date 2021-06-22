@@ -1,6 +1,12 @@
 @extends('layouts.app')
+@section('breadcrumb')
+            <ol class="breadcrumb float-sm-left">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{route('user')}}">Quản lý khách hàng</a></li>
+              <li class="breadcrumb-item active">Thêm</li>
+            </ol>
+@endsection
 @section('content')
-<section class="content">
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -21,11 +27,13 @@
                     @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
-                    
                   </div>
                   <div class="form-group">
                     <label for="name">Tuổi</label>
                     <input type="text" name="age" class="form-control" placeholder="Enter tuổi">
+                    @if( $errors->has('age'))
+                    <span class="text-danger">{{ $errors->first('age') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Giới tính</label>
@@ -34,10 +42,16 @@
                         <input style="margin-left:20px;" type="radio" name="gender" value="1"> Nữ
                         <input style="margin-left:20px;" type="radio" name="gender" value="2"> Khác
                     </div>
+                    @if( $errors->has('gender'))
+                    <span class="text-danger">{{ $errors->first('gender') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Địa chỉ</label>
                     <input type="text" name="address" class="form-control" placeholder="Enter địa chỉ">
+                    @if( $errors->has('address'))
+                    <span class="text-danger">{{ $errors->first('address') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Phân loại</label>
@@ -46,6 +60,9 @@
                             <option value="{{$class}}">{{$class}}</option>
                         @endforeach
                     </select>
+                    @if( $errors->has('classify'))
+                    <span class="text-danger">{{ $errors->first('classify') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Nơi làm việc</label>
@@ -55,10 +72,16 @@
                                 <option value="{{$com->id}}">{{$com->name}}</option>
                             @endforeach
                         </select>
+                    @if( $errors->has('company_id'))
+                    <span class="text-danger">{{ $errors->first('company_id') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Nghề nghiệp</label>
                     <input type="text" name="job" class="form-control" placeholder="Enter nghề nghiệp">
+                    @if( $errors->has('job'))
+                    <span class="text-danger">{{ $errors->first('job') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Nhân viên chăm sóc</label>
@@ -67,6 +90,9 @@
                             <option value="{{$user->id}}">{{$user->name}}</option>
                         @endforeach
                     </select>
+                    @if( $errors->has('user_ids'))
+                    <span class="text-danger">{{ $errors->first('user_ids') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Đơn hàng</label>
@@ -75,6 +101,9 @@
                             <option value="{{$order->id}}">{{$order->name}}</option>
                         @endforeach
                     </select>
+                    @if( $errors->has('order_ids'))
+                    <span class="text-danger">{{ $errors->first('order_ids') }}</span>
+                    @endif
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -94,6 +123,5 @@
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-    </section>
-    @endsection
+@endsection
         

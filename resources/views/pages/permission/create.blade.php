@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<section class="content">
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -38,6 +37,5 @@
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-</section>
  @endsection
         

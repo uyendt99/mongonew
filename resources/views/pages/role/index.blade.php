@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<section class="content">
       <div class="container-fluid">
         <!-- /.row -->
         <div class="row">
@@ -14,17 +13,15 @@
                </div>
                <br>
                @endif
-                <h3 class="card-title">Order</h3>
+                <h3 class="card-title">Vai trò</h3>
                 <a href="{{ route('role.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Add</a>
-                <a class="btn btn-warning float-right" href="{{ route('export.order') }}" style="margin-left:10px;">Export</a>
-                <button type="submit"  class="btn btn-success float-right" data-toggle="modal" data-target="#myModalHorizontal">Import</button>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Tên vai tròg</th>
+                      <th>Tên vai trò</th>
                       <th>Quyền</th>
                       <th colspan="2">Action</th>
                     </tr>
@@ -58,7 +55,6 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    </section>
     <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">

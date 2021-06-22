@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<section class="content">
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -22,7 +21,7 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Tổng giá tiền</label>
-                    <input type="text" name="total_price" class="form-control" placeholder="Enter giá">
+                    <input type="number" name="total_price" class="form-control" placeholder="Enter giá">
                     <span class="text-danger">{{ $errors->first('total_price') }}</span>
                   </div>
                 </div>
@@ -43,6 +42,5 @@
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-    </section>
     @endsection
         

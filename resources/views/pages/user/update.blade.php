@@ -3,7 +3,7 @@
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item"><a href="{{route('user')}}">Quản lý tài khoản</a></li>
-              <li class="breadcrumb-item active">Thêm</li>
+              <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
 @endsection
 @section('content')
@@ -18,12 +18,12 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="createUser" class="form_validate" action="{{route('user.store')}}" method="POST">
+              <form id="updateUser" class="form_validate" action="{{route('user.update',$user->id)}}" method="POST">
               @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Họ và tên</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter tên">
+                    <input type="text" name="name" value="{{old('name',$user->name)}}" class="form-control" placeholder="Enter tên">
                     @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
@@ -31,21 +31,17 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Tên đăng nhập</label>
-                    <input type="text" name="username" class="form-control" placeholder="Enter tên đăng nhập">
+                    <input type="text" name="username" value="{{old('username',$user->username)}}" class="form-control" placeholder="Enter tên đăng nhập">
                   </div>
                   <div class="form-group">
                     <label for="name">Email</label>
-                    <input type="text" name="email" class="form-control" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="name">Password</label>
-                    <input type="text" name="password" class="form-control" placeholder="Enter password">
+                    <input type="text" name="email" value="{{old('email',$user->email)}}" class="form-control" placeholder="Enter email">
                   </div>
                   <div class="form-group">
                     <label for="name">Vai trò</label>
                     <select multiple="multiple" name="role_ids[]" id="user-select" class="form-control multiple_select">
                         @foreach($roles as $role)
-                            <option value="{{$role->id}}">{{$role->name}}</option>
+                            <option value="{{$role->id}}" {{in_array($role->id, $user->role_ids) ? "selected" : ''}}>{{$role->name}}</option>
                         @endforeach
                     </select>
                   </div>

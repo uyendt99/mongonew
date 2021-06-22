@@ -12,12 +12,30 @@ use App\Imports\CustomersImport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\CustomerRequest;
+use Auth;
 
 class CustomerController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
+        $user_id = Auth::user()->id;
+        $array_user = [];
         $customers = Customer::with('company')->paginate(5);
+        // //dd($customers);
+        // foreach($customers as $customer){
+        //     foreach($customer->user_ids as $user_id){
+        //         array_push($array_user,$user_id);
+        //     }
+        // }
+        // //dd($user_id,$array_user);
+        // $customers = Customer::with('company')->whereIn($user_id, $array_user)->paginate(5);
+        // dd($customers);
+       
         return view('pages.customer.index',compact('customers'));
     }
 
@@ -31,7 +49,7 @@ class CustomerController extends Controller
         return view('pages.customer.create',compact('companies','users','classifys','orders'));
     }
 
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
         $user_ids = $request->get('user_ids');
         $order_ids = $request->get('order_ids');

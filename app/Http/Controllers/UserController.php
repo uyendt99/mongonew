@@ -9,6 +9,11 @@ use App\Models\Role;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $users = User::paginate(5);
@@ -33,5 +38,25 @@ class UserController extends Controller
         $user->roles()->attach($role_ids);
 
         return redirect('/user')->with('success','Thêm tài khoản thành công');
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        return view('pages.user.update',compact('user','roles'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request->get('name');
+        $user->username = $request->get('username');
+        $user->email = $request->get('email');
+        $user->roles()->detach($user->role_ids);
+        $user->roles()->attach($request->get('role_ids'));
+        $user->update();
+        
+        return redirect('/user')->with('success',"Cập nhật thông tin tài khoản thành công");
     }
 }

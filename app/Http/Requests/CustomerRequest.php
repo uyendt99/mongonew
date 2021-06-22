@@ -28,10 +28,10 @@ class CustomerRequest extends FormRequest
             'age'  => 'required|min:1',
             'gender' => 'required',
             'address' => 'required|string',
-            'classify[]' => 'required',
+            'classify' => 'required',
             'company_id' => 'required',
             'job' => 'required',
-            'user_ids[]' => 'required'
+            'user_ids' => 'required'
         ];
     }
 
@@ -43,11 +43,12 @@ class CustomerRequest extends FormRequest
             'age.required' => 'Vui lòng nhập tuổi',
             'age.number' => 'Vui lòng nhập số',
             'age.min' => 'Tuổi phải là một số lớn hơn 0',
+            'gender.required' => 'Vui lòng chọn giới tính',
             'address.required' => 'Vui lòng nhập địa chỉ',
-            'classify[].required' => 'Vui lòng chọn loại khách hàng',
+            'classify.required' => 'Vui lòng chọn loại khách hàng',
             'company_id.required' => 'Vui lòng chọn nơi làm việc',
             'job.required' => 'Vui lòng nhập nghề nghiệp',
-            'user_ids[]' => 'Vui lòng chọn nhân viên chăm sóc'
+            'user_ids.required' => 'Vui lòng chọn nhân viên chăm sóc'
         ];
     }
 }
