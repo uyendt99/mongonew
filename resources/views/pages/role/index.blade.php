@@ -32,7 +32,7 @@
                       <td>{{$role->name}}</td>
                       <td>
                         @foreach($role->permissions as $per)
-                        <span style="border-radius:2px;background: green;color:#fff;padding:3px 5px;">{{$per->name}}</span>
+                        <span style="border-radius:2px;background: green;color:#fff;padding:3px 5px;">{{$per->display_name}}</span>
                         @endforeach
                       </td>
                       <td><a href="{{route('role.edit', $role->id)}}" class="btn btn-warning">Edit</a></td>
@@ -55,21 +55,4 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-                  <!-- Modal Body -->
-            <div class="modal-body">
-                <div>
-                    Import Order
-                </div>
-                <form action="{{ route('import.order') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="file" class="form-control">
-                    <br>
-                    <button class="btn btn-success">Import</button>
-                </form>
-            </div>
-        </div>
-    </div>
 @endsection

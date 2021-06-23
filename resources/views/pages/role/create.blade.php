@@ -17,15 +17,20 @@
                     <div class="form-group">
                         <label for="name">Tên vai trò</label>
                         <input type="text" name="name" class="form-control" placeholder="Enter tên vai trò">
+                        @if( $errors->has('name'))
                         <span class="text-danger">{{ $errors->first('name') }}</span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="name">Quyền</label>
                         <select multiple="multiple" name="permission_ids[]" id="user-select" class="form-control multiple_select">
                             @foreach($permissions as $per)
-                                <option value="{{$per->id}}">{{$per->name}}</option>
+                                <option value="{{$per->id}}">{{$per->display_name}}</option>
                             @endforeach
                         </select>
+                        @if( $errors->has('permission_ids'))
+                        <span class="text-danger">{{ $errors->first('permission_ids') }}</span>
+                        @endif
                     </div>
                 </div>
                 <!-- /.card-body -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Http\Requests\RoleRequest;
 
 class RoleController extends Controller
 {
@@ -25,7 +26,7 @@ class RoleController extends Controller
        return view('pages.role.create',compact('permissions'));
     }
 
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
         $permission_ids = $request->get('permission_ids');
         $role = new Role();

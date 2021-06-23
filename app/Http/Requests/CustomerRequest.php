@@ -38,8 +38,8 @@ class CustomerRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Vui lòng nhập tên',
-            'name.string' => 'Tên phải là chuỗi ký tự chữ',
+            'name.required' => 'Vui lòng nhập tên khách hàng',
+            'name.string' => 'Tên khách hàng phải là chuỗi ký tự chữ',
             'age.required' => 'Vui lòng nhập tuổi',
             'age.number' => 'Vui lòng nhập số',
             'age.min' => 'Tuổi phải là một số lớn hơn 0',

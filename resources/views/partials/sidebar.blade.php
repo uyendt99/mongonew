@@ -54,6 +54,12 @@
                   <p>Thêm</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{route('importExportView.customer')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Import/Export</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item menu-open">
@@ -75,6 +81,12 @@
                 <a href="{{route('order.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('importExportView.order')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Import/Export</p>
                 </a>
               </li>
             </ul>

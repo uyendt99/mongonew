@@ -13,6 +13,10 @@ class Customer extends Eloquent
     protected $connection = 'mongodb';
     protected $table = 'customers';
 
+    protected $fillable = [
+        'name','age','gender','address','classify','company_id','job','user_ids','order_ids'
+    ];
+
     public function company()
     {
         return $this->belongsTo(Company::class,'company_id');

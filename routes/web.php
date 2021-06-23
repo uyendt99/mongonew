@@ -42,6 +42,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function() {
     Route::post('/edit/{id}','CustomerController@update')->name('customer.update');
     Route::delete('/{id?}','CustomerController@destroy')->name('customer.delete')->middleware('permission:delete_customer');
     Route::get('/show/{id}','CustomerController@show')->name('customer.show');
+    Route::get('/importExportView', 'CustomerController@importExportView')->name('importExportView.customer');
     Route::get('/export', 'CustomerController@export')->name('export.customer')->middleware('permission:export_customer');
     Route::post('/import', 'CustomerController@import')->name('import.customer')->middleware('permission:import_customer');
 });
@@ -53,6 +54,7 @@ Route::group(['prefix' => 'order', 'middleware' => 'auth'], function() {
     Route::get('/edit/{id}','OrderController@edit')->name('order.edit')->middleware('permission:edit_order');
     Route::post('/edit/{id}','OrderController@update')->name('order.update');
     Route::delete('/{id}','OrderController@destroy')->name('order.delete')->middleware('permission:delete_order');
+    Route::get('/importExportView', 'OrderController@importExportView')->name('importExportView.order');
     Route::get('/export', 'OrderController@export')->name('export.order')->middleware('permission:export_order');
     Route::post('/import', 'OrderController@import')->name('import.order')->middleware('permission:import_order');
 });

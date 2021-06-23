@@ -15,8 +15,6 @@
                @endif
                 <h3 class="card-title">Customer</h3>
                 <a href="{{ route('customer.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Add</a>
-                <a class="btn btn-warning float-right" href="{{ route('export.customer') }}" style="margin-left:10px;">Export</a>
-                <button type="submit"  class="btn btn-success float-right" data-toggle="modal" data-target="#myModalHorizontal">Import</button>
               </div>
               <!-- /.card-header -->
               @if(count($customers) > 0)

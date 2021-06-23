@@ -17,7 +17,16 @@
                   <div class="form-group">
                     <label for="name">Tên quyền</label>
                     <input type="text" name="name" class="form-control" placeholder="Enter tên quyền">
+                    @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Tên hiển thị</label>
+                    <input type="text" name="display_name" class="form-control" placeholder="Enter tên quyền hiển thị">
+                    @if( $errors->has('display_name'))
+                    <span class="text-danger">{{ $errors->first('display_name') }}</span>
+                    @endif
                   </div>
                 </div>
                 <!-- /.card-body -->

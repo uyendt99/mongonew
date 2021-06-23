@@ -14,16 +14,19 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithValidation;
+
 use Maatwebsite\Excel\Events\AfterImport;
-use App\Jobs\Import;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\WithProgressBar;
 
 
-class OrdersImport implements ToModel,WithHeadingRow,WithStartRow
+class OrdersImport implements ToModel,WithStartRow,WithValidation,WithProgressBar
 {
+    use Importable;
 	/**
     * @param array $row
     *
@@ -32,25 +35,35 @@ class OrdersImport implements ToModel,WithHeadingRow,WithStartRow
     public function model(array $row)
     {
         return new Order([
-            'name'     => @$row['name'],
-            'total_price'    => @$row['total_price'],
+            'name'     => $row[0],
+            'total_price'    => $row[1],
         ]);
     }
     public function startRow(): int
     {
-        return 2;
+        return 1;
     }
 
     public function rules(): array
     {
         return [
-            '*.name' => ['required', "min:3", "max:100"],
-            '*.total_price'          => ['required','number'],
+            '*.0' => 'required|string',
+            '*.1' => 'required|numeric',
         ];
     }
 
     public function chunkSize(): int
     {
         return 1000;
+    }
+
+    public function customValidationMessages()
+    {
+        return [
+            '0.required' => "Tên đơn hàng không được để trống",
+            '0.string'   => "Tên đơn hàng là chuỗi ký tự",
+            '1.required' => "Cột tổng tiền không được để trống",
+            '1.numeric' => "Giá trị cột tổng tiền phải là ký tự số"
+        ];
     }
 }

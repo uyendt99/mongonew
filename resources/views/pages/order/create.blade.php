@@ -17,12 +17,16 @@
                   <div class="form-group">
                     <label for="name">Tên đơn hàng</label>
                     <input type="text" name="name" class="form-control" placeholder="Enter tên đơn hàng">
+                    @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Tổng giá tiền</label>
                     <input type="number" name="total_price" class="form-control" placeholder="Enter giá">
+                    @if( $errors->has('total_price'))
                     <span class="text-danger">{{ $errors->first('total_price') }}</span>
+                    @endif
                   </div>
                 </div>
                 <!-- /.card-body -->

@@ -7,6 +7,8 @@ use App\Exports\OrdersExport;
 use App\Imports\OrdersImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Order;
+use App\Http\Requests\OrderRequest;
+use App\Http\Requests\ImportRequest;
 
 class OrderController extends Controller
 {
@@ -26,7 +28,7 @@ class OrderController extends Controller
         return view('pages.order.create');
     }
 
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
         $order = new Order();
         $order->name = $request->get('name');
@@ -58,7 +60,7 @@ class OrderController extends Controller
 
     public function importExportView()
     {
-       return view('import');
+       return view('pages.order.importExport');
     }
      
     public function export() 
@@ -66,10 +68,14 @@ class OrderController extends Controller
         return Excel::download(new OrdersExport, 'orders.xlsx');
     }
      
-    public function import() 
+    public function import(ImportRequest $request) 
     {
-        Excel::import(new OrdersImport,request()->file('file'));
-           
-        return back();
+       $import = Excel::import(new OrdersImport,request()->file('file'));
+        if(isset($import)){
+            return redirect('/order')->with('success','Import danh sách đơn hàng thành công');
+        }else{
+            return back()->with('error','Import thất bại');
+        }
+        
     }
 }

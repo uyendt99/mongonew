@@ -15,8 +15,6 @@
                @endif
                 <h3 class="card-title">Order</h3>
                 <a href="{{ route('order.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Add</a>
-                <a class="btn btn-warning float-right" href="{{ route('export.order') }}" style="margin-left:10px;">Export</a>
-                <button type="submit"  class="btn btn-success float-right" data-toggle="modal" data-target="#myModalHorizontal">Import</button>
               </div>
               <!-- /.card-header -->
               <div class="card-body">

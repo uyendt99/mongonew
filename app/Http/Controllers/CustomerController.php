@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\CustomerRequest;
 use Auth;
+use App\Http\Requests\ImportRequest;
 
 class CustomerController extends Controller
 {
@@ -23,19 +24,19 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $array_user = [];
-        $customers = Customer::with('company')->paginate(5);
-        // //dd($customers);
-        // foreach($customers as $customer){
-        //     foreach($customer->user_ids as $user_id){
-        //         array_push($array_user,$user_id);
-        //     }
-        // }
-        // //dd($user_id,$array_user);
-        // $customers = Customer::with('company')->whereIn($user_id, $array_user)->paginate(5);
-        // dd($customers);
-       
+        foreach(Auth::user()->roles as $role){
+            foreach($role->permissions as $per){
+                if($per->name == 'read_customer_for_user'){
+                    $customers = Customer::with('company')->whereHas('users', function($q){
+                        $q->where('_id', Auth::user()->id);
+                    })->paginate(5);
+                }else{
+                    $customers = Customer::with('company')->paginate(5);
+                }
+            }
+            
+        }
+        
         return view('pages.customer.index',compact('customers'));
     }
 
@@ -112,12 +113,17 @@ class CustomerController extends Controller
         return redirect('/customer')->with('success',"Xóa khách hàng thành công");
     }
 
+    public function importExportView()
+    {
+       return view('pages.customer.importExport');
+    }
+
     public function export()
     {
         return Excel::download(new CustomersExport, 'customers.xlsx');
     }
 
-    public function import()
+    public function import(ImportRequest $request)
     {
         Excel::import(new CustomersImport,request()->file('file'));
 

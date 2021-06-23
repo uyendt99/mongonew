@@ -23,7 +23,7 @@
                         <label for="name">Quyền</label>
                         <select multiple="multiple" name="permission_ids[]" id="user-select" class="form-control multiple_select">
                             @foreach($permissions as $per)
-                                <option value="{{$per->id}}" {{in_array($per->id, $role->permission_ids) ? "selected" : ''}}>{{$per->name}}</option>
+                                <option value="{{$per->id}}" {{in_array($per->id, $role->permission_ids) ? "selected" : ''}}>{{$per->display_name}}</option>
                             @endforeach
                         </select>
                     </div>
