@@ -23,7 +23,7 @@
               <div class="container">
                 <div class="justify-content-center col-md-4 offset-md-4">
                     <div style="margin:30px 0;">
-                        <form action="{{ route('import.order') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('import.order') }}" class="import" method="POST" enctype="multipart/form-data">
                             @csrf
                             <label for="">Import đơn hàng</label>
                             <input type="file" name="file" class="form-control">
@@ -34,6 +34,10 @@
                                 @endforeach
                             </ul>
                             @endif
+                            <div class="progress">
+                                <div class="bar"></div >
+                                <div class="percent">0%</div >
+                            </div>
                             <br>
                             <button class="btn btn-success">Import</button>
                         </form> 

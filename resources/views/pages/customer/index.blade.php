@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('breadcrumb')
+            <ol class="breadcrumb float-sm-left">
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
+              <li class="breadcrumb-item active">Quản lý khách hàng</li>
+            </ol>
+@endsection
 @section('content')
       <div class="container-fluid">
         <!-- /.row -->
@@ -13,8 +19,8 @@
                </div>
                <br>
                @endif
-                <h3 class="card-title">Customer</h3>
-                <a href="{{ route('customer.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Add</a>
+                <h3 class="card-title">Danh sách khách hàng</h3>
+                <a href="{{ route('customer.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
               </div>
               <!-- /.card-header -->
               @if(count($customers) > 0)
@@ -30,7 +36,7 @@
                     <th>Nơi làm việc</th>
                     <th>Nghề nghiệp</th>
                     <th>Nhân viên chăm sóc</th>
-                    <th style="text-align: center;" colspan="3">Hành động</th>
+                    <th style="width: 170px;">Hành động</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -53,15 +59,14 @@
                           @endforeach
                       </td>
                       <td>
-                      <td><a href="{{route('customer.edit', $rs->id)}}" class="btn btn-warning">Edit</a></td>
-                      <td>
+                        <a href="{{route('customer.edit', $rs->id)}}" class="btn btn-warning btn_action"><i style="color:#fff;" class="fas fa-pencil-alt"></i></a>
                         <form action="{{route('customer.delete', $rs->id)}}" method="post">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-danger show_confirm" type="submit">Delete</button>
+                            <button class="btn btn-danger show_confirm btn_action" type="submit"><i class="fas fa-trash-alt"></i></button>
                         </form>
+                        <a href="{{route('customer.show', $rs->id)}}" class="btn btn-success"><i class="far fa-eye"></i></a>
                       </td>
-                      <td><a href="{{route('customer.show', $rs->id)}}" class="btn btn-success">Show</a></td>
                     </tr>
                     @endforeach
                   </tbody>

@@ -71,6 +71,8 @@ class OrderController extends Controller
     public function import(ImportRequest $request) 
     {
        $import = Excel::import(new OrdersImport,request()->file('file'));
+       $import = new OrdersImport;
+        Excel::import($import, request()->file('file'));
         if(isset($import)){
             return redirect('/order')->with('success','Import danh sách đơn hàng thành công');
         }else{

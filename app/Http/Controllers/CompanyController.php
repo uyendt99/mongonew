@@ -35,7 +35,7 @@ class CompanyController extends Controller
     
     public function destroy($id)
     {
-        $company = Link::destroy($id);
-        return Response::json($company);
+        $company = Company::destroy($id);
+        return redirect('/company')->with('success', "Xóa công ty thành công");
     }
 }

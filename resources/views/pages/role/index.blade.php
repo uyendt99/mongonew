@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('breadcrumb')
+            <ol class="breadcrumb float-sm-left">
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
+              <li class="breadcrumb-item">Quản lý quyền</li>
+            </ol>
+@endsection
 @section('content')
       <div class="container-fluid">
         <!-- /.row -->
@@ -13,8 +19,8 @@
                </div>
                <br>
                @endif
-                <h3 class="card-title">Vai trò</h3>
-                <a href="{{ route('role.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Add</a>
+                <h3 class="card-title">Danh sách vai trò</h3>
+                <a href="{{ route('role.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -23,7 +29,7 @@
                     <tr>
                       <th>Tên vai trò</th>
                       <th>Quyền</th>
-                      <th colspan="2">Action</th>
+                      <th style="width:120px;">Hành động</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -31,16 +37,20 @@
                     <tr>
                       <td>{{$role->name}}</td>
                       <td>
-                        @foreach($role->permissions as $per)
-                        <span style="border-radius:2px;background: green;color:#fff;padding:3px 5px;">{{$per->display_name}}</span>
+                      @if(count($role->permissions)>0)
+                        @foreach($role->permissions as $permission)
+                             <span class="badge badge-success">{{$permission->display_name}}</span>
                         @endforeach
+                      @else
+                        <span class="badge badge-danger">No permission</span>
+                      @endif
                       </td>
-                      <td><a href="{{route('role.edit', $role->id)}}" class="btn btn-warning">Edit</a></td>
                       <td>
+                        <a href="{{route('role.edit', $role->id)}}" class="btn btn-warning btn_action"><i style="color:#fff;" class="fas fa-pencil-alt"></i></a>
                         <form action="{{route('role.delete', $role->id)}}" method="post">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-danger show_confirm" type="submit">Delete</button>
+                            <button class="btn btn-danger show_confirm" type="submit"><i class="fas fa-trash-alt"></i></button>
                         </form>
                       </td>
                     </tr>

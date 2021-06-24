@@ -44,7 +44,7 @@ class RoleController extends Controller
         return view('pages.role.update',compact('role','permissions'));
     }
 
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
         $role = Role::findOrFail($id);
         $role->name = $request->get('name');
@@ -53,5 +53,10 @@ class RoleController extends Controller
         $role->update();
         
         return redirect('/role')->with('success',"Cập nhật thông tin vai trò thành công");
+    }
+    public function destroy($id)
+    {
+        $role = Role::destroy($id);
+        return redirect('/role')->with('success',"Xóa vai trò thành công");
     }
 }

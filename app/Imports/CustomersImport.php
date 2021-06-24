@@ -12,8 +12,9 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Company;
+use App\Rules\CommaSeparated;
 
-class CustomersImport implements ToModel,WithStartRow
+class CustomersImport implements ToModel,WithStartRow,WithValidation
 {
     /**
     * @param array $row
@@ -27,7 +28,8 @@ class CustomersImport implements ToModel,WithStartRow
             $company_id = $com['_id'];
         }
         $user_name = explode(',',$row[7]);
-        //dd($user_name);
+        $order_name = explode(',', $row[8]);
+        $array_orderId = [];
         $array_userId = [];
         foreach($user_name as $name){
             $user = User::where('name','like', $name)->get()->toArray();
@@ -36,9 +38,13 @@ class CustomersImport implements ToModel,WithStartRow
                 array_push($array_userId,$userId);
             }
         }
-        dd($array_userId);
-        
-
+        foreach($order_name as $name){
+            $order = Order::where('name','like', $name)->get()->toArray();
+            foreach($order as $or){
+                $orderId = $or['_id'];
+                array_push($array_orderId,$orderId);
+            }
+        }
         $customer = new Customer([
             'name'     => $row[0],
             'age'    => $row[1],
@@ -48,22 +54,30 @@ class CustomersImport implements ToModel,WithStartRow
             'company_id'    => $company_id,
             'job'    => $row[6],
             'user_ids' => $array_userId,
-            'order_ids' => $row[8]
+            'order_ids' => $array_orderId
         ]);
+        $customer->save();
+        $customer->users()->attach($array_userId);
+        $customer->orders()->attach($array_orderId);
         return $customer;
     }
     public function startRow(): int
     {
-        return 1;
+        return 2;
     }
 
     public function rules(): array
     {
         return [
-            '*.name' => ['required', "min:3", "max:100"],
-            '*.age'          => ['required','number'],
-            '*.address' => ['required', "min:3", "max:100"],
-            '*.job' => ['required', "min:3", "max:100"],
+            '*.0' => ['required', "min:3", "max:100"],
+            '*.1'          => ['required','numeric'],
+            '*.2' => ['required'],
+            '*.3' => ['required'],
+            '*.4' => ['required'],
+            '*.5' => ['required'],
+            '*.6' => ['required'],
+            '*.7' => ['required'],
+            '*.8' => ['required']
         ];
     }
 

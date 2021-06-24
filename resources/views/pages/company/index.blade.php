@@ -1,4 +1,8 @@
 @extends('layouts.app')
+            <ol class="breadcrumb float-sm-left">
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
+              <li class="breadcrumb-item active">Quản lý khách hàng</li>
+            </ol>
 @section('content')
       <div class="container-fluid">
         <!-- /.row -->
@@ -6,7 +10,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Company</h3>
+                <h3 class="card-title">Danh sách công ty</h3>
 
                 <!-- <div class="card-tools">
                 
@@ -20,7 +24,7 @@
                     </div>
                   </div>
                 </div> -->
-                  <button id="btn-add" name="btn-add" class="btn btn-primary float-right">Add</button>
+                  <button id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></button>
                 
               </div>
               <!-- /.card-header -->
@@ -29,7 +33,7 @@
                   <thead>
                     <tr>
                       <th>Tên công ty</th>
-                      <th colspan="2">Action</th>
+                      <th>Hành động</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -37,8 +41,12 @@
                     <tr>
                       <td>{{$item->name}}</td>
                       <td>
-                      <button class="btn btn-info open-modal" value="{{$item->id}}">Edit</button>
-                      <button class="btn btn-danger delete-link" value="{{$item->id}}">Delete</button>
+                        <a href="{{route('company.edit', $item->id)}}" class="btn btn-warning btn_action"><i style="color:#fff;" class="fas fa-pencil-alt"></i></a>
+                        <form action="{{route('company.delete', $item->id)}}" method="post">
+                            @csrf
+                            <input name="_method" type="hidden" value="DELETE">
+                            <button class="btn btn-danger show_confirm" type="submit"><i class="fas fa-trash-alt"></i></button>
+                        </form>
                       </td>
                     </tr>
                   @endforeach

@@ -88,7 +88,7 @@ class CustomerController extends Controller
         return view('pages.customer.update',compact('customer','id','classifys','companies','users','orders'));
     }
 
-    public function update(Request $request, $id)
+    public function update(CustomerRequest $request, $id)
     {
         $customer = Customer::findOrFail($id);
         $customer->name = $request->get('name');
@@ -125,9 +125,12 @@ class CustomerController extends Controller
 
     public function import(ImportRequest $request)
     {
-        Excel::import(new CustomersImport,request()->file('file'));
-
-        return back();
+        $import = Excel::import(new CustomersImport,request()->file('file'));
+        if(isset($import)){
+            return redirect('/customer')->with('success','Import danh sách khách hàng thành công');
+        }else{
+            return back()->with('error','Import thất bại');
+        }
     }
 }
 

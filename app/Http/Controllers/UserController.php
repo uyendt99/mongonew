@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -26,7 +27,7 @@ class UserController extends Controller
         return view('pages.user.create',compact('roles'));
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $role_ids = $request->get('role_ids');
         $user = new User();
@@ -47,7 +48,7 @@ class UserController extends Controller
         return view('pages.user.update',compact('user','roles'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $user->name = $request->get('name');
@@ -58,5 +59,10 @@ class UserController extends Controller
         $user->update();
         
         return redirect('/user')->with('success',"Cập nhật thông tin tài khoản thành công");
+    }
+    public function destroy($id)
+    {
+        $user = User::destroy($id);
+        return redirect('/user')->with('success',"Xóa tài khoản thành công");
     }
 }

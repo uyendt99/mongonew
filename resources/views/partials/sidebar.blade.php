@@ -35,7 +35,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Quản lý khách hàng
                 <i class="right fas fa-angle-left"></i>
@@ -64,7 +64,7 @@
           </li>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-address-book"></i>
               <p>
                 Quản lý đơn hàng
                 <i class="right fas fa-angle-left"></i>
@@ -93,7 +93,7 @@
           </li>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-building"></i>
               <p>
                 Quản lý công ty
                 <i class="right fas fa-angle-left"></i>
@@ -116,7 +116,7 @@
           </li>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-user"></i>
               <p>
                 Quản lý tài khoản
                 <i class="right fas fa-angle-left"></i>
@@ -139,46 +139,24 @@
           </li>
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon far fa-plus-square"></i>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Phân quyền
-                <i class="fas fa-angle-left right"></i>
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('role')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Vai trò
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
+                  <p>Vai trò</p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{route('role')}}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Danh sách</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('permission')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Quyền
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
+                  <p>Quyền</p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{route('permission')}}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Danh sách</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
             </ul>
           </li>

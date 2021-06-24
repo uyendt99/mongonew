@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Permission;
+use App\Http\Requests\PermissionRequest;
 
 class PermissionController extends Controller
 {
@@ -29,5 +30,27 @@ class PermissionController extends Controller
         $permission->name = $request->get('name');
         $permission->save();
         return redirect('/permission')->with('success','Thêm quyền thành công');
+    }
+
+    public function edit($id)
+    {
+        $permission = Permission::findOrFail($id);
+        return view('pages.permission.update',compact('permission'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $permission = Permission::findOrFail($id);
+        $permission->name = $request->get('name');
+        $permission->display_name = $request->get('display_name');
+        $role->update();
+        
+        return redirect('/permission')->with('success',"Cập nhật thông tin quyền thành công");
+    }
+
+    public function destroy($id)
+    {
+        $permission = Permission::destroy($id);
+        return redirect('/permission')->with('success',"Xóa quyền thành công");
     }
 }

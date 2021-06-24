@@ -22,9 +22,12 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithProgressBar;
+use Maatwebsite\Excel\Concerns\OnEachRow;
+use Maatwebsite\Excel\Row;
+use DB;
 
 
-class OrdersImport implements ToModel,WithStartRow,WithValidation,WithProgressBar
+class OrdersImport implements OnEachRow,WithStartRow,WithValidation,WithProgressBar
 {
     use Importable;
 	/**
@@ -32,16 +35,35 @@ class OrdersImport implements ToModel,WithStartRow,WithValidation,WithProgressBa
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    private $rows = 0;
+
+    public function onRow(Row $row)
     {
-        return new Order([
-            'name'     => $row[0],
-            'total_price'    => $row[1],
-        ]);
+        ++$this->rows;
+        $row = $row->toArray();
+        DB::beginTransaction();
+        try {
+            $order = Order::query()->firstOrCreate(
+                ['name' => $row[0]],
+    
+                [
+                    'name' => $row[0],
+                    'total_price'     => $row[1],
+                ]
+            );
+            DB::commit();
+        } catch (Exceptions $e) {
+            DB::rollBack();
+            Log::debug($e);
+        }
+    }
+    public function getRowCount(): int
+    {
+        return $this->rows;
     }
     public function startRow(): int
     {
-        return 1;
+        return 2;
     }
 
     public function rules(): array

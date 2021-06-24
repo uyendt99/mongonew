@@ -39,7 +39,7 @@ class OrderImportExcel extends Command
     public function handle()
     {
         $this->output->title('Starting import');
-        (new OrdersImport)->withOutput($this->output)->import(request()->file('file'));
+        (new OrdersImport)->withOutput($this->output)->import('order.xlsx');
         $this->output->success('Import successful');
     }
 }

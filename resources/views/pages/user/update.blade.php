@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('breadcrumb')
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
               <li class="breadcrumb-item"><a href="{{route('user')}}">Quản lý tài khoản</a></li>
               <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
@@ -14,7 +14,7 @@
             <!-- jquery validation -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Thêm tài khoản mới</h3>
+                <h3 class="card-title">Cập nhật tài khoản</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -27,15 +27,20 @@
                     @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
-
                   </div>
                   <div class="form-group">
                     <label for="name">Tên đăng nhập</label>
                     <input type="text" name="username" value="{{old('username',$user->username)}}" class="form-control" placeholder="Enter tên đăng nhập">
+                    @if( $errors->has('username'))
+                    <span class="text-danger">{{ $errors->first('username') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Email</label>
                     <input type="text" name="email" value="{{old('email',$user->email)}}" class="form-control" placeholder="Enter email">
+                    @if( $errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Vai trò</label>
@@ -44,6 +49,9 @@
                             <option value="{{$role->id}}" {{in_array($role->id, $user->role_ids) ? "selected" : ''}}>{{$role->name}}</option>
                         @endforeach
                     </select>
+                    @if( $errors->has('role_ids'))
+                    <span class="text-danger">{{ $errors->first('role_ids') }}</span>
+                    @endif
                   </div>
                 </div>
                 <!-- /.card-body -->

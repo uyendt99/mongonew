@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('breadcrumb')
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
               <li class="breadcrumb-item"><a href="{{route('user')}}">Quản lý tài khoản</a></li>
               <li class="breadcrumb-item active">Thêm</li>
             </ol>
@@ -32,14 +32,23 @@
                   <div class="form-group">
                     <label for="name">Tên đăng nhập</label>
                     <input type="text" name="username" class="form-control" placeholder="Enter tên đăng nhập">
+                    @if( $errors->has('username'))
+                    <span class="text-danger">{{ $errors->first('username') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Email</label>
                     <input type="text" name="email" class="form-control" placeholder="Enter email">
+                    @if( $errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Password</label>
                     <input type="text" name="password" class="form-control" placeholder="Enter password">
+                    @if( $errors->has('password'))
+                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                    @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Vai trò</label>
@@ -48,6 +57,9 @@
                             <option value="{{$role->id}}">{{$role->name}}</option>
                         @endforeach
                     </select>
+                    @if( $errors->has('role_ids'))
+                    <span class="text-danger">{{ $errors->first('role_ids') }}</span>
+                    @endif
                   </div>
                 </div>
                 <!-- /.card-body -->

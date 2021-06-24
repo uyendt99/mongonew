@@ -1,4 +1,11 @@
 @extends('layouts.app')
+@section('breadcrumb')
+            <ol class="breadcrumb float-sm-left">
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
+              <li class="breadcrumb-item"><a href="{{route('role')}}">Quản lý vai trò</a></li>
+              <li class="breadcrumb-item active">Thêm</li>
+            </ol>
+@endsection
 @section('content')
       <div class="container-fluid">
         <div class="row">

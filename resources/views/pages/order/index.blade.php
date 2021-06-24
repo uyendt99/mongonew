@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('breadcrumb')
+            <ol class="breadcrumb float-sm-left">
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
+              <li class="breadcrumb-item active">Quản lý đơn hàng</li>
+            </ol>
+@endsection
 @section('content')
       <div class="container-fluid">
         <!-- /.row -->
@@ -13,8 +19,8 @@
                </div>
                <br>
                @endif
-                <h3 class="card-title">Order</h3>
-                <a href="{{ route('order.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Add</a>
+                <h3 class="card-title">Danh sách đơn hàng</h3>
+                <a href="{{ route('order.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -23,7 +29,7 @@
                     <tr>
                       <th>Tên đơn hàng</th>
                       <th>Tổng tiền</th>
-                      <th colspan="3">Action</th>
+                      <th>Hành động</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -31,13 +37,12 @@
                     <tr>
                       <td>{{$order->name}}</td>
                       <td>{{$order->total_price}} VNĐ</td>
-                      
-                      <td><a href="{{route('order.edit', $order->id)}}" class="btn btn-warning">Edit</a></td>
                       <td>
+                        <a href="{{route('order.edit', $order->id)}}" class="btn btn-warning btn_action"><i style="color:#fff;" class="fas fa-pencil-alt"></i></a>
                         <form action="{{route('order.delete', $order->id)}}" method="post">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-danger show_confirm" type="submit">Delete</button>
+                            <button class="btn btn-danger show_confirm" type="submit"><i class="fas fa-trash-alt"></i></button>
                         </form>
                       </td>
                     </tr>

@@ -4,6 +4,31 @@ $('.show_confirm').click(function(e) {
         e.preventDefault();
     }
 });
+    var SITEURL = "{{url('/')}}";
+ 
+    $(function() {
+         $(document).ready(function()
+         {
+            var bar = $('.bar');
+            var percent = $('.percent');
+ 
+      $('.import').ajaxForm({
+        beforeSend: function() {
+            var percentVal = '0%';
+            bar.width(percentVal)
+            percent.html(percentVal);
+        },
+        uploadProgress: function(event, position, total, percentComplete) {
+            var percentVal = percentComplete + '%';
+            bar.width(percentVal)
+            percent.html(percentVal);
+        },
+        complete: function(xhr) {
+            //window.location.href = SITEURL;
+        }
+      });
+   }); 
+ });
 if ($("#createOrder").length > 0) {
     $("#createOrder").validate({
 
@@ -273,6 +298,202 @@ if ($("#login").length > 0) {
             password: {
                 required: "Vui lòng nhập mật khẩu",
                 minlength: "Password ít nhất 6 ký tự"
+            }
+
+        },
+    })
+}
+if ($("#createRole").length > 0) {
+    $("#createRole").validate({
+
+        rules: {
+            name: {
+                required: true,
+                maxlength: 50
+            },
+
+            "permission_ids[]": {
+                required: true,
+            },
+
+        },
+        messages: {
+
+            name: {
+                required: "Vui lòng nhập tên vai trò",
+            },
+            "permission_ids[]": {
+                required: "Vui lòng chọn quyền",
+            }
+
+        },
+    })
+} 
+if ($("#updateRole").length > 0) {
+    $("#updateRole").validate({
+
+        rules: {
+            name: {
+                required: true,
+                maxlength: 50
+            },
+
+            "permission_ids[]": {
+                required: true,
+            },
+
+        },
+        messages: {
+
+            name: {
+                required: "Vui lòng nhập tên vai trò",
+            },
+            "permission_ids[]": {
+                required: "Vui lòng chọn quyền",
+            }
+
+        },
+    })
+} 
+if ($("#createPermission").length > 0) {
+    $("#createPermission").validate({
+
+        rules: {
+            name: {
+                required: true,
+                maxlength: 50
+            },
+
+            display_name: {
+                required: true,
+            },
+
+        },
+        messages: {
+
+            name: {
+                required: "Vui lòng nhập tên quyền",
+            },
+            display_name: {
+                required: "Vui lòng nhập tên quyền hiển thị",
+            }
+
+        },
+    })
+} 
+if ($("#updatePermission").length > 0) {
+    $("#updatePermission").validate({
+
+        rules: {
+            name: {
+                required: true,
+                maxlength: 50
+            },
+
+            display_name: {
+                required: true,
+            },
+
+        },
+        messages: {
+
+            name: {
+                required: "Vui lòng nhập tên quyền",
+            },
+            display_name: {
+                required: "Vui lòng nhập tên quyền hiển thị",
+            }
+
+        },
+    })
+}
+if ($("#createUser").length > 0) {
+    $("#createUser").validate({
+
+        rules: {
+            name: {
+                required: true,
+            },
+
+            username: {
+                required: true,
+            },
+            email: {
+                required: true,
+                email:true
+            },
+            password: {
+                required: true,
+                minlength:6
+            },
+            "role_ids[]": {
+                required : true,
+            }
+        },
+        messages: {
+
+            name: {
+                required: "Vui lòng nhập tên",
+            },
+            username: {
+                required: "Vui lòng nhập tên đăng nhập",
+            },
+            email: {
+                required: "Vui lòng nhập email",
+                email: "Định dạng email không đúng"
+            },
+            password: {
+                required: "Vui lòng nhập mật khẩu",
+                minlength: "Password ít nhất 6 ký tự"
+            },
+            "role_ids[]": {
+                required: "Vui lòng chọn vai trò",
+            }
+
+        },
+    })
+}
+if ($("#updateUser").length > 0) {
+    $("#updateUser").validate({
+
+        rules: {
+            name: {
+                required: true,
+            },
+
+            username: {
+                required: true,
+            },
+            email: {
+                required: true,
+                email:true
+            },
+            password: {
+                required: true,
+                minlength:6
+            },
+            "role_ids[]": {
+                required : true,
+            }
+        },
+        messages: {
+
+            name: {
+                required: "Vui lòng nhập tên",
+            },
+            username: {
+                required: "Vui lòng nhập tên đăng nhập",
+            },
+            email: {
+                required: "Vui lòng nhập email",
+                email: "Định dạng email không đúng"
+            },
+            password: {
+                required: "Vui lòng nhập mật khẩu",
+                minlength: "Password ít nhất 6 ký tự"
+            },
+            "role_ids[]": {
+                required: "Vui lòng chọn vai trò",
             }
 
         },
