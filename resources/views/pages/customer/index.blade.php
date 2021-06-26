@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+Danh sách khách hàng
+@endsection
 @section('breadcrumb')
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
@@ -23,6 +26,19 @@
                 <a href="{{ route('customer.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
               </div>
               <!-- /.card-header -->
+              <!-- <div class="card-body">
+              <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
               @if(count($customers) > 0)
               <div class="card-body">
                 <table class="table">
@@ -84,21 +100,4 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-                  <!-- Modal Body -->
-            <div class="modal-body">
-                <div>
-                    Import Order
-                </div>
-                <form action="{{ route('import.customer') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="file" class="form-control">
-                    <br>
-                    <button class="btn btn-success">Import</button>
-                </form> 
-            </div>
-        </div>
-    </div>
 @endsection

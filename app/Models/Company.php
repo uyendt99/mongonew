@@ -11,7 +11,7 @@ class Company extends Eloquent
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $table  = 'companies';
+    protected $collection   = 'companies';
     
     protected $fillable = [
         'name'

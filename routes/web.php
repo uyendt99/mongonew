@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home');
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('login', 'Auth\LoginController@getLogin')->name('login');
 Route::post('login', 'Auth\LoginController@postLogin')->name('login.store');

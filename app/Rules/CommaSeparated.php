@@ -29,7 +29,8 @@ class CommaSeparated implements Rule
         return !Validator::make(
             [
                 "{$attribute}" => array_map('trim', explode(',', $value)),
-            ]
+            ],
+            
         )->fails();
     }
 
@@ -40,6 +41,6 @@ class CommaSeparated implements Rule
      */
     public function message()
     {
-        return " :attribute phải ngăn cách nhau bằng dấu ','.";
+        return ' :attribute phải ngăn cách nhau bằng dấu ,';
     }
 }

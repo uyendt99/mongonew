@@ -11,7 +11,7 @@ class Order extends Eloquent
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $table = 'orders';
+    protected $collection  = 'orders';
 
     protected $fillable = [
         'name',

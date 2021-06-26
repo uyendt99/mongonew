@@ -23,6 +23,7 @@
                 <a href="{{ route('order.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
               </div>
               <!-- /.card-header -->
+              @if(count($orders) > 0)
               <div class="card-body">
                 <table class="table">
                   <thead>
@@ -53,28 +54,14 @@
               <div class="card-footer clearfix">
               {{ $orders->links('pagination::bootstrap-4') }}
               </div>
+              @else
+              <div>
+                <p style="text-align: center;">Không có dữ liệu</p>
+              </div>
+              @endif
             </div>
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-                  <!-- Modal Body -->
-            <div class="modal-body">
-                <div>
-                    Import Order
-                </div>
-                <form action="{{ route('import.order') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="file" class="form-control">
-                    @if( $errors->has('file'))
-                    <span class="text-danger">{{ $errors->first('file') }}</span>
-                    @endif
-                    <br>
-                    <button class="btn btn-success">Import</button>
-                </form> 
-            </div>
-        </div>
-    </div>
+    
 @endsection

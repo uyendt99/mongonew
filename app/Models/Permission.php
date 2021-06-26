@@ -10,7 +10,7 @@ class Permission extends Eloquent
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $table = 'permissions';
+    protected $collection  = 'permissions';
 
     public function roles()
     {

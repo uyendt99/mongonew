@@ -1,8 +1,10 @@
 @extends('layouts.app')
+@section('breadcrumb')
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
-              <li class="breadcrumb-item active">Quản lý khách hàng</li>
+              <li class="breadcrumb-item">Quản lý công ty</li>
             </ol>
+@endsection
 @section('content')
       <div class="container-fluid">
         <!-- /.row -->
@@ -24,10 +26,11 @@
                     </div>
                   </div>
                 </div> -->
-                  <button id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></button>
+                <a href="{{ route('company.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
                 
               </div>
               <!-- /.card-header -->
+              @if(count($companies) > 0)
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                   <thead>
@@ -79,6 +82,14 @@
                   </div>
                 </div>
               </div>
+              <div class="card-footer clearfix">
+              {{ $companies->links('pagination::bootstrap-4') }}
+              </div>
+              @else
+              <div>
+                <p style="text-align: center;">Không có dữ liệu</p>
+              </div>
+              @endif
           </div>
         </div>
         

@@ -4,31 +4,7 @@ $('.show_confirm').click(function(e) {
         e.preventDefault();
     }
 });
-    var SITEURL = "{{url('/')}}";
  
-    $(function() {
-         $(document).ready(function()
-         {
-            var bar = $('.bar');
-            var percent = $('.percent');
- 
-      $('.import').ajaxForm({
-        beforeSend: function() {
-            var percentVal = '0%';
-            bar.width(percentVal)
-            percent.html(percentVal);
-        },
-        uploadProgress: function(event, position, total, percentComplete) {
-            var percentVal = percentComplete + '%';
-            bar.width(percentVal)
-            percent.html(percentVal);
-        },
-        complete: function(xhr) {
-            //window.location.href = SITEURL;
-        }
-      });
-   }); 
- });
 if ($("#createOrder").length > 0) {
     $("#createOrder").validate({
 
@@ -499,3 +475,23 @@ if ($("#updateUser").length > 0) {
         },
     })
 }
+if ($("#import").length > 0) {
+    $("#import").validate({
+
+        rules: {
+            file: {
+                required: true,
+                extension: "xls|xlsx"
+            }
+
+        },
+        messages: {
+
+            file: {
+                required: "Vui lòng chọn file",
+                extension: "File đúng định dạng đuôi .xls hoặc .xlsx"
+            },
+
+        },
+    })
+} 

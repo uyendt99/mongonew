@@ -11,7 +11,7 @@ class Role extends Eloquent
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $table = 'roles';
+    protected $collection  = 'roles';
 
     public function users()
     {

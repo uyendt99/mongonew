@@ -23,6 +23,7 @@
                 <a href="{{ route('role.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
               </div>
               <!-- /.card-header -->
+              @if(count($roles) > 0)
               <div class="card-body">
                 <table class="table">
                   <thead>
@@ -61,6 +62,11 @@
               <div class="card-footer clearfix">
               {{ $roles->links('pagination::bootstrap-4') }}
               </div>
+              @else
+              <div>
+                <p style="text-align: center;">Không có dữ liệu</p>
+              </div>
+              @endif
             </div>
           </div>
         </div>

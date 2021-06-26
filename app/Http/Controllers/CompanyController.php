@@ -13,7 +13,7 @@ class CompanyController extends Controller
     
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::paginate(5);
         return view('pages.company.index',compact('companies'));
     }
 
@@ -23,14 +23,23 @@ class CompanyController extends Controller
     }
     public function store(Request $request)
     {
-        $order = new Company();
-        $order->name = $request->get('name');
-        $order->save();
+        $company = new Company();
+        $company->name = $request->get('name');
+        $company->save();
         return redirect('/company');
     }
     public function edit($id)
     {
+        $company = Company::findOrFail($id);
+        return view('pages.company.update',compact('company'));
+    }
 
+    public function update(Request $request, $id)
+    {
+        $company = Company::findOrFail($id);
+        $company->name = $request->get('name');
+        $company->update();
+        return redirect('/company')->with('success','Cập nhật công ty thành công');
     }
     
     public function destroy($id)

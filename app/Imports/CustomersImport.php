@@ -85,4 +85,19 @@ class CustomersImport implements ToModel,WithStartRow,WithValidation
     {
         return 1000;
     }
+
+    public function customValidationMessages()
+    {
+        return [
+            '0.required' => "Cột tên khách hàng không được để trống",
+            '1.reuqired'   => "Cột tuổi khách hàng không được để trống",
+            '1.numeric' => "Cột tuổi phải nhập số",
+            '2.required' => "Cột giới tính khách hàng không được để trống",
+            '3.reuqired'   => "Cột địa chỉ khách hàng không được để trống",
+            '4.required' => "Cột phân loại khách hàng không được để trống",
+            '5.reuqired'   => "Cột nơi làm việc khách hàng không được để trống",
+            '6.required' => "Cột nghề nghiệp khách hàng không được để trống",
+            '7.reuqired'   => "Cột nhân viên chăm sóc khách hàng không được để trống",
+        ];
+    }
 }

@@ -3,7 +3,7 @@
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
               <li class="breadcrumb-item"><a href="{{route('company')}}">Quản lý công ty</a></li>
-              <li class="breadcrumb-item active">Thêm</li>
+              <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
 @endsection
 @section('content')
@@ -14,16 +14,16 @@
             <!-- jquery validation -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Thêm công ty mới</h3>
+                <h3 class="card-title">Cập nhật công ty</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="createCompany" class="form_validate" action="{{route('company.store')}}" method="POST">
+              <form id="updateCompany" class="form_validate" action="{{route('company.update',$company->id)}}" method="POST">
               @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Tên công ty</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter tên công ty">
+                    <input type="text" name="name" value="{{old('name',$company->name)}}" class="form-control" placeholder="Enter tên công ty">
                     @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif

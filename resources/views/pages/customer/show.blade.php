@@ -50,6 +50,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Thông tin đơn hàng đã mua</h3>
                 </div>
+                @if(count($orders) > 0)
                 <div class="card-body">
                 <table class="table">
                   <thead>
@@ -71,6 +72,11 @@
               <div class="card-footer clearfix">
               {{ $orders->links('pagination::bootstrap-4') }}
               </div>
+              @else
+              <div>
+                <p style="text-align: center;">Không có dữ liệu</p>
+              </div>
+              @endif
             </div>
         </div>
         <!-- /.row -->

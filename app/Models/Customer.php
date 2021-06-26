@@ -11,7 +11,7 @@ class Customer extends Eloquent
     use HasFactory;
 
     protected $connection = 'mongodb';
-    protected $table = 'customers';
+    protected $collection  = 'customers';
 
     protected $fillable = [
         'name','age','gender','address','classify','company_id','job','user_ids','order_ids'
