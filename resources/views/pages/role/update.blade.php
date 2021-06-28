@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">Tên vai trò</label>
-                        <input type="text" name="name" value="{{old('name',$role->name)}}" class="form-control" placeholder="Enter tên vai trò">
+                        <input type="text" name="name" value="{{old('name',$role->name)}}" class="form-control" placeholder="Tên vai trò">
                         <span class="text-danger">{{ $errors->first('name') }}</span>
                     </div>
                     <div class="form-group">
@@ -37,7 +37,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Xác nhận</button>
                 </div>
               </form>
             </div>

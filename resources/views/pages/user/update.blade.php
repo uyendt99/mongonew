@@ -23,21 +23,21 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Họ và tên</label>
-                    <input type="text" name="name" value="{{old('name',$user->name)}}" class="form-control" placeholder="Enter tên">
+                    <input type="text" name="name" value="{{old('name',$user->name)}}" class="form-control" placeholder="Tên">
                     @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Tên đăng nhập</label>
-                    <input type="text" name="username" value="{{old('username',$user->username)}}" class="form-control" placeholder="Enter tên đăng nhập">
+                    <input type="text" name="username" value="{{old('username',$user->username)}}" class="form-control" placeholder="Tên đăng nhập">
                     @if( $errors->has('username'))
                     <span class="text-danger">{{ $errors->first('username') }}</span>
                     @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Email</label>
-                    <input type="text" name="email" value="{{old('email',$user->email)}}" class="form-control" placeholder="Enter email">
+                    <input type="text" name="email" value="{{old('email',$user->email)}}" class="form-control" placeholder="Email">
                     @if( $errors->has('email'))
                     <span class="text-danger">{{ $errors->first('email') }}</span>
                     @endif
@@ -56,7 +56,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Xác nhận</button>
                 </div>
               </form>
             </div>

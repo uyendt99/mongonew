@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Http\Requests\CompanyRequest;
 
 class CompanyController extends Controller
 {
@@ -13,7 +14,7 @@ class CompanyController extends Controller
     
     public function index()
     {
-        $companies = Company::paginate(5);
+        $companies = Company::orderBy('created_at', 'desc')->paginate(5);
         return view('pages.company.index',compact('companies'));
     }
 
@@ -21,7 +22,7 @@ class CompanyController extends Controller
     {
        return view('pages.company.create');
     }
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
         $company = new Company();
         $company->name = $request->get('name');
@@ -34,7 +35,7 @@ class CompanyController extends Controller
         return view('pages.company.update',compact('company'));
     }
 
-    public function update(Request $request, $id)
+    public function update(CompanyRequest $request, $id)
     {
         $company = Company::findOrFail($id);
         $company->name = $request->get('name');

@@ -29,15 +29,89 @@ class CustomerController extends Controller
                 if($per->name == 'read_customer_for_user'){
                     $customers = Customer::with('company')->whereHas('users', function($q){
                         $q->where('_id', Auth::user()->id);
-                    })->paginate(5);
+                    })->orderBy('created_at', 'desc')->paginate(5);
                 }else{
-                    $customers = Customer::with('company')->paginate(5);
+                    $customers = Customer::with('company')->orderBy('created_at', 'desc')->paginate(5);
                 }
             }
             
         }
         
         return view('pages.customer.index',compact('customers'));
+    }
+
+    public function test()
+    {
+        foreach(Auth::user()->roles as $role){
+            foreach($role->permissions as $per){
+                if($per->name == 'read_customer_for_user'){
+                    $customers = Customer::with('company')->whereHas('users', function($q){
+                        $q->where('_id', Auth::user()->id);
+                    })->orderBy('created_at', 'desc')->paginate(5);
+                }else{
+                    $customers = Customer::with('company')->orderBy('created_at', 'desc')->paginate(5);
+                }
+            }
+            
+        }
+        
+        return view('pages.customer.importExport',compact('customers'));
+    }
+
+    function action(Request $request)
+    {
+     if($request->ajax())
+     {
+      $output = '';
+      $query = $request->get('query');
+      if($query != '')
+      {
+       $data = Customer::where('name', 'like', '%'.$query.'%')
+         ->orWhere('email', 'like', '%'.$query.'%')
+         ->orWhere('phone', 'like', '%'.$query.'%')
+         ->orderBy('created_at', 'desc')
+         ->paginate(5);
+      }
+      else
+      {
+       $data = Customer::orderBy('created_at', 'desc')->get();
+      }
+      $total_row = $data->count();
+      if($total_row > 0)
+      {
+       foreach($data as $row)
+       {
+        $output .= '
+        <tr>
+         <td>'.$row->name.'</td>
+         <td>'.$row->age.'</td>
+         <td>'.$row->gender.'</td>
+         <td>'.$row->phone.'</td>
+         <td>'.$row->email.'</td>
+         <td>'.$row->address.'</td>
+         <td>'.$row->classify.'</td>
+         <td>'.$row->company->name.'</td>
+         <td>'.$row->job.'</td>
+         <td>'.$row->user_ids.'</td>
+        </tr>
+        ';
+       }
+      }
+      else
+      {
+       $output = '
+       <tr>
+        <td align="center" colspan="11">No Data Found</td>
+       </tr>
+       ';
+      }
+      $data = array(
+       'table_data'  => $output,
+       'total_data'  => $total_row
+      );
+
+      echo json_encode($data);
+     }
     }
 
     public function create()
@@ -57,6 +131,8 @@ class CustomerController extends Controller
         $customer=new Customer();
         $customer->name = $request->get('name');
         $customer->age = $request->get('age');
+        $customer->phone = $request->get('phone');
+        $customer->email = $request->get('email');
         $customer->gender = $request->get('gender');
         $customer->address = $request->get('address');
         $customer->classify = $request->get('classify');
@@ -94,6 +170,8 @@ class CustomerController extends Controller
         $customer->name = $request->get('name');
         $customer->age = $request->get('age');
         $customer->gender = $request->get('gender');
+        $customer->phone = $request->get('phone');
+        $customer->email = $request->get('email');
         $customer->address = $request->get('address');
         $customer->classify = $request->get('classify');
         $customer->company_id = $request->get('company_id');

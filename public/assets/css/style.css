@@ -26,3 +26,15 @@
      left:50%; 
      color: #040608;
 }
+.form_delete{
+    margin-bottom: 0;
+}
+.drop_custom{
+    min-width: auto !important;
+}
+.import_data{
+    cursor: pointer;
+}
+.error_req{
+    color: red;
+}

@@ -4,7 +4,51 @@ $('.show_confirm').click(function(e) {
         e.preventDefault();
     }
 });
- 
+var url = window.location;
+
+// for sidebar menu entirely but not cover treeview
+$('ul.nav-sidebar a').filter(function() {
+    return this.href == url;
+}).addClass('active');
+
+// for treeview
+$('ul.nav-treeview a').filter(function() {
+    return this.href == url;
+}).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+
+jQuery.validator.addMethod('valid_phone', function (value) {
+    var regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+    return value.trim().match(regex);
+  });
+
+//   $(document).ready(function(){
+
+//     fetch_customer_data();
+   
+//     function fetch_customer_data(query = '')
+//     {
+//      $.ajax({
+//         headers: {
+//             'X-CSRF-TOKEN': '<?php echo csrf_token() ?>'
+//             },
+//       url:"{{ route('customer.action') }}",
+//       method:'POST',
+//       data:{query:query},
+//       dataType:'json',
+//       success:function(data)
+//       {
+//           console.log('e');
+//        $('tbody').html(data.table_data);
+//       }
+//      })
+//     }
+   
+//     $(document).on('keyup', '#search', function(){
+//      var query = $(this).val();
+//      fetch_customer_data(query);
+//     });
+//    });
+
 if ($("#createOrder").length > 0) {
     $("#createOrder").validate({
 
@@ -72,6 +116,14 @@ if ($("#createCustomer").length > 0){
             gender: {
                 required: true
             },
+            phone: {
+                required: true,
+                valid_phone: true,
+            },
+            email: {
+                required: true,
+                email:true
+            },
             address: {
                 required: true
             },
@@ -102,6 +154,14 @@ if ($("#createCustomer").length > 0){
             },
             gender: {
                 required: "Vui lòng chọn giới tính"
+            },
+            phone: {
+                required: "Vui lòng nhập số điện thoại",
+                valid_phone: "Số điện thoại của bạn không đúng định dạng"
+            },
+            email: {
+                required: "Vui lòng nhập địa chỉ email",
+                email:"Định dạng email không đúng"
             },
             address: {
                 required: "Vui lòng nhập địa chỉ"
@@ -146,6 +206,14 @@ if ($("#updateCustomer").length > 0){
                 min: 1
             },
 
+            phone: {
+                required: true,
+                valid_phone: true,
+            },
+            email: {
+                required: true,
+                email:true
+            },
             address: {
                 required: true
             },
@@ -173,6 +241,14 @@ if ($("#updateCustomer").length > 0){
                 required: "Vui lòng nhập tuổi",
                 number: "Tuổi phải là dạng số",
                 min: "Tuổi phải là số lớn hơn 0"
+            },
+            phone: {
+                required: "Vui lòng nhập số điện thoại",
+                valid_phone: "Số điện thoại của bạn không đúng định dạng"
+            },
+            email: {
+                required: "Vui lòng nhập địa chỉ email",
+                email:"Định dạng email không đúng"
             },
             address: {
                 required: "Vui lòng nhập địa chỉ"
@@ -481,7 +557,7 @@ if ($("#import").length > 0) {
         rules: {
             file: {
                 required: true,
-                extension: "xls|xlsx"
+                extension: "xls|xlsx",
             }
 
         },
@@ -489,7 +565,43 @@ if ($("#import").length > 0) {
 
             file: {
                 required: "Vui lòng chọn file",
-                extension: "File đúng định dạng đuôi .xls hoặc .xlsx"
+                extension: "File không đúng định dạng phải là .xls hoặc xlsx."
+            },
+
+        },
+    })
+} 
+if ($("#createCompany").length > 0) {
+    $("#createCompany").validate({
+
+        rules: {
+            name: {
+                required: true,
+            },
+
+        },
+        messages: {
+
+            name: {
+                required: "Vui lòng nhập tên công ty",
+            },
+
+        },
+    })
+} 
+if ($("#updateCompany").length > 0) {
+    $("#updateCompany").validate({
+
+        rules: {
+            name: {
+                required: true,
+            },
+
+        },
+        messages: {
+
+            name: {
+                required: "Vui lòng nhập tên công ty",
             },
 
         },

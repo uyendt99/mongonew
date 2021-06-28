@@ -34,13 +34,14 @@ Route::group(['prefix' => 'company', 'middleware' => 'auth'], function() {
 
 Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function() {
     Route::get('/','CustomerController@index')->name('customer')->middleware('permission:read_customer');
+    Route::get('/test','CustomerController@test')->middleware('permission:read_customer');
+    Route::post('/test/action', 'CustomerController@action')->name('customer.action');
     Route::get('/create','CustomerController@create')->name('customer.create')->middleware('permission:create_customer');
     Route::post('/create','CustomerController@store')->name('customer.store');
     Route::get('/edit/{id}','CustomerController@edit')->name('customer.edit')->middleware('permission:edit_customer');
     Route::post('/edit/{id}','CustomerController@update')->name('customer.update');
     Route::delete('/{id?}','CustomerController@destroy')->name('customer.delete')->middleware('permission:delete_customer');
     Route::get('/show/{id}','CustomerController@show')->name('customer.show');
-    Route::get('/importExportView', 'CustomerController@importExportView')->name('importExportView.customer');
     Route::get('/export', 'CustomerController@export')->name('export.customer')->middleware('permission:export_customer');
     Route::post('/import', 'CustomerController@import')->name('import.customer')->middleware('permission:import_customer');
 });
@@ -52,7 +53,6 @@ Route::group(['prefix' => 'order', 'middleware' => 'auth'], function() {
     Route::get('/edit/{id}','OrderController@edit')->name('order.edit')->middleware('permission:edit_order');
     Route::post('/edit/{id}','OrderController@update')->name('order.update');
     Route::delete('/{id}','OrderController@destroy')->name('order.delete')->middleware('permission:delete_order');
-    Route::get('/importExportView', 'OrderController@importExportView')->name('importExportView.order');
     Route::get('/export', 'OrderController@export')->name('export.order')->middleware('permission:export_order');
     Route::post('/import', 'OrderController@import')->name('import.order')->middleware('permission:import_order');
 });

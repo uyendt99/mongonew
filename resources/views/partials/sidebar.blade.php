@@ -13,7 +13,7 @@
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
+      <!-- <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
@@ -22,15 +22,15 @@
             </button>
           </div>
         </div>
-      </div>
-
+      </div> -->
+      <!-- {{  request()->routeIs('customer|customer.create') ? 'active' : '' }} -->
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Quản lý khách hàng
@@ -50,16 +50,10 @@
                   <p>Thêm</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('importExportView.customer')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Import/Export</p>
-                </a>
-              </li>
             </ul>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-address-book"></i>
               <p>
                 Quản lý đơn hàng
@@ -79,16 +73,10 @@
                   <p>Thêm</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{route('importExportView.order')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Import/Export</p>
-                </a>
-              </li>
             </ul>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-building"></i>
               <p>
                 Quản lý công ty
@@ -110,15 +98,14 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="{{route('user')}}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Quản lý tài khoản
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <!-- <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{route('user')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -131,10 +118,10 @@
                   <p>Thêm</p>
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Phân quyền

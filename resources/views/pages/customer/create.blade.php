@@ -22,21 +22,21 @@
               @csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="name">Tên khách hàng</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter tên">
+                    <label for="name">Tên khách hàng <span class="error_req">*</span></label>
+                    <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="Tên">
                     @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
                   </div>
                   <div class="form-group">
-                    <label for="name">Tuổi</label>
-                    <input type="text" name="age" class="form-control" placeholder="Enter tuổi">
+                    <label for="name">Tuổi <span class="error_req">*</span></label>
+                    <input type="text" name="age" value="{{old('age')}}" class="form-control" placeholder="Tuổi">
                     @if( $errors->has('age'))
                     <span class="text-danger">{{ $errors->first('age') }}</span>
                     @endif
                   </div>
                   <div class="form-group">
-                    <label for="name">Giới tính</label>
+                    <label for="name">Giới tính <span class="error_req">*</span></label>
                     <div class="radio_gender">
                         <input type="radio" name="gender" value="0"> Nam
                         <input style="margin-left:20px;" type="radio" name="gender" value="1"> Nữ
@@ -47,14 +47,28 @@
                     @endif
                   </div>
                   <div class="form-group">
-                    <label for="name">Địa chỉ</label>
-                    <input type="text" name="address" class="form-control" placeholder="Enter địa chỉ">
+                    <label for="name">Số điện thoại <span class="error_req">*</span></label>
+                    <input type="text" name="phone" value="{{old('phone')}}" class="form-control" placeholder="Số điện thoại">
+                    @if( $errors->has('phone'))
+                    <span class="text-danger">{{ $errors->first('phone') }}</span>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Email <span class="error_req">*</span></label>
+                    <input type="text" name="email" value="{{old('email')}}" class="form-control" placeholder="Email">
+                    @if( $errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Địa chỉ <span class="error_req">*</span></label>
+                    <input type="text" name="address" value="{{old('address')}}" class="form-control" placeholder="Địa chỉ">
                     @if( $errors->has('address'))
                     <span class="text-danger">{{ $errors->first('address') }}</span>
                     @endif
                   </div>
                   <div class="form-group">
-                    <label for="name">Phân loại</label>
+                    <label for="name">Phân loại <span class="error_req">*</span></label>
                     <select class="form-control multiple_select" multiple="multiple" name="classify[]" id="">
                         @foreach($classifys as $class)
                             <option value="{{$class}}">{{$class}}</option>
@@ -65,7 +79,7 @@
                     @endif
                   </div>
                   <div class="form-group">
-                    <label for="name">Nơi làm việc</label>
+                    <label for="name">Nơi làm việc <span class="error_req">*</span></label>
                         <select class="form-control" name="company_id" id="">
                             <option value="">Chọn nơi làm việc</option>
                             @foreach($companies as $com)
@@ -77,14 +91,14 @@
                     @endif
                   </div>
                   <div class="form-group">
-                    <label for="name">Nghề nghiệp</label>
-                    <input type="text" name="job" class="form-control" placeholder="Enter nghề nghiệp">
+                    <label for="name">Nghề nghiệp <span class="error_req">*</span></label>
+                    <input type="text" name="job" value="{{old('job')}}" class="form-control" placeholder="Nghề nghiệp">
                     @if( $errors->has('job'))
                     <span class="text-danger">{{ $errors->first('job') }}</span>
                     @endif
                   </div>
                   <div class="form-group">
-                    <label for="name">Nhân viên chăm sóc</label>
+                    <label for="name">Nhân viên chăm sóc <span class="error_req">*</span></label>
                     <select multiple="multiple" name="user_ids[]" id="user-select" class="form-control multiple_select">
                         @foreach($users as $user)
                             <option value="{{$user->id}}">{{$user->name}}</option>
@@ -108,7 +122,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Lưu lại</button>
                 </div>
               </form>
             </div>

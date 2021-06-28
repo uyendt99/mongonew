@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::paginate(5);
+        $users = User::orderBy('created_at', 'desc')->paginate(5);
         return view('pages.user.index',compact('users'));
     }
 
@@ -48,12 +48,14 @@ class UserController extends Controller
         return view('pages.user.update',compact('user','roles'));
     }
 
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        dd($id);
         $user = User::findOrFail($id);
         $user->name = $request->get('name');
         $user->username = $request->get('username');
         $user->email = $request->get('email');
+        
         $user->roles()->detach($user->role_ids);
         $user->roles()->attach($request->get('role_ids'));
         $user->update();

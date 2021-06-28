@@ -20,7 +20,7 @@
                <br>
                @endif
                 <h3 class="card-title">Danh sách quyền</h3>
-                <a href="{{ route('permission.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
+                <a href="{{ route('permission.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right">Thêm</a>
               </div>
               <!-- /.card-header -->
               @if(count($permissions) > 0)
@@ -39,12 +39,18 @@
                       <td>{{$per->display_name}}</td>
                       <td>{{$per->name}}</td>
                       <td>
-                        <a href="{{route('permission.edit', $per->id)}}" class="btn btn-warning btn_action"><i style="color:#fff;" class="fas fa-pencil-alt"></i></a>
-                        <form action="{{route('permission.delete', $per->id)}}" method="post">
-                            @csrf
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-danger show_confirm" type="submit"><i class="fas fa-trash-alt"></i></button>
-                        </form>
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                          </button>
+                          <div class="dropdown-menu drop_custom">
+                            <a class="dropdown-item" href="{{route('permission.edit', $per->id)}}">Sửa</a>
+                            <form action="{{route('permission.delete', $per->id)}}" method="post">
+                              @csrf
+                              <input name="_method" type="hidden" value="DELETE">
+                              <button class="dropdown-item show_confirm btn_action" type="submit">Xóa</button>
+                            </form>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                     @endforeach

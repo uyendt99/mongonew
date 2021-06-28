@@ -23,7 +23,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Tên công ty</label>
-                    <input type="text" name="name" value="{{old('name',$company->name)}}" class="form-control" placeholder="Enter tên công ty">
+                    <input type="text" name="name" value="{{old('name',$company->name)}}" class="form-control" placeholder="Tên công ty">
                     @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
@@ -31,7 +31,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Xác nhận</button>
                 </div>
               </form>
             </div>

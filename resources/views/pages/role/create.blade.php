@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">Tên vai trò</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter tên vai trò">
+                        <input type="text" name="name" class="form-control" placeholder="Tên vai trò">
                         @if( $errors->has('name'))
                         <span class="text-danger">{{ $errors->first('name') }}</span>
                         @endif
@@ -42,7 +42,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Lưu lại</button>
                 </div>
               </form>
             </div>

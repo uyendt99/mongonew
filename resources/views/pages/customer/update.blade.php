@@ -23,11 +23,11 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Tên khách hàng</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter tên" value="{{old('name', $customer->name)}}">
+                    <input type="text" name="name" class="form-control" placeholder="Tên" value="{{old('name', $customer->name)}}">
                   </div>
                   <div class="form-group">
                     <label for="name">Tuổi</label>
-                    <input type="number" name="age" class="form-control" placeholder="Enter tuổi" value="{{old('age',$customer->age)}}">
+                    <input type="number" name="age" class="form-control" placeholder="Tuổi" value="{{old('age',$customer->age)}}">
                   </div>
                   <div class="form-group">
                     <label for="name">Giới tính</label>
@@ -38,8 +38,22 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="name">Số điện thoại</label>
+                    <input type="text" name="phone" value="{{old('phone',$customer->phone)}}" class="form-control" placeholder="Số điện thoại">
+                    @if( $errors->has('phone'))
+                    <span class="text-danger">{{ $errors->first('phone') }}</span>
+                    @endif
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Email</label>
+                    <input type="text" name="email" value="{{old('email',$customer->email)}}" class="form-control" placeholder="Email">
+                    @if( $errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
+                  </div>
+                  <div class="form-group">
                     <label for="name">Địa chỉ</label>
-                    <input type="text" name="address" class="form-control" placeholder="Enter địa chỉ" value="{{old('address',$customer->address)}}">
+                    <input type="text" name="address" class="form-control" placeholder="Địa chỉ" value="{{old('address',$customer->address)}}">
                   </div>
                   <div class="form-group">
                     <label for="name">Phân loại</label>
@@ -60,7 +74,7 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Nghề nghiệp</label>
-                    <input type="text" name="job" class="form-control" placeholder="Enter nghề nghiệp" value="{{$customer->job}}">
+                    <input type="text" name="job" class="form-control" placeholder="Nghề nghiệp" value="{{$customer->job}}">
                   </div>
                   <div class="form-group">
                     <label for="name">Nhân viên chăm sóc</label>
@@ -81,7 +95,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Xác nhận</button>
                 </div>
               </form>
             </div>

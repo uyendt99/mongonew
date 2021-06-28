@@ -15,7 +15,7 @@ class PermissionController extends Controller
     
     public function index()
     {
-        $permissions = Permission::paginate(5);
+        $permissions = Permission::orderBy('created_at', 'desc')->paginate(5);
         return view('pages.permission.index',compact('permissions'));
     }
 
@@ -28,6 +28,7 @@ class PermissionController extends Controller
     {
         $permission = new Permission();
         $permission->name = $request->get('name');
+        $permission->display_name = $request->get('display_name');
         $permission->save();
         return redirect('/permission')->with('success','Thêm quyền thành công');
     }

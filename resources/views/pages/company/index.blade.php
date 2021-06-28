@@ -26,7 +26,7 @@
                     </div>
                   </div>
                 </div> -->
-                <a href="{{ route('company.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
+                <a href="{{ route('company.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right">Thêm</a>
                 
               </div>
               <!-- /.card-header -->
@@ -44,12 +44,24 @@
                     <tr>
                       <td>{{$item->name}}</td>
                       <td>
-                        <a href="{{route('company.edit', $item->id)}}" class="btn btn-warning btn_action"><i style="color:#fff;" class="fas fa-pencil-alt"></i></a>
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                          </button>
+                          <div class="dropdown-menu drop_custom">
+                            <a class="dropdown-item" href="{{route('company.edit', $item->id)}}">Sửa</a>
+                            <form action="{{route('company.delete', $item->id)}}" method="post">
+                              @csrf
+                              <input name="_method" type="hidden" value="DELETE">
+                              <button class="dropdown-item show_confirm btn_action" type="submit">Xóa</button>
+                            </form>
+                          </div>
+                        </div>
+                        <!-- <a href="{{route('company.edit', $item->id)}}" class="btn btn-warning btn_action"><i style="color:#fff;" class="fas fa-pencil-alt"></i></a>
                         <form action="{{route('company.delete', $item->id)}}" method="post">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="btn btn-danger show_confirm" type="submit"><i class="fas fa-trash-alt"></i></button>
-                        </form>
+                        </form> -->
                       </td>
                     </tr>
                   @endforeach

@@ -23,14 +23,14 @@
                 <div class="card-body">
                     <div class="form-group">
                     <label for="name">Tên hiển thị</label>
-                    <input type="text" name="display_name" value="{{old('display_name',$permission->display_name)}}" class="form-control" placeholder="Enter tên quyền hiển thị">
+                    <input type="text" name="display_name" value="{{old('display_name',$permission->display_name)}}" class="form-control" placeholder="Tên quyền hiển thị">
                     @if( $errors->has('display_name'))
                     <span class="text-danger">{{ $errors->first('display_name') }}</span>
                     @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Tên quyền</label>
-                    <input type="text" name="name" value="{{old('name',$permission->name)}}" class="form-control" placeholder="Enter tên quyền">
+                    <input type="text" name="name" value="{{old('name',$permission->name)}}" class="form-control" placeholder="Tên quyền">
                     @if( $errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
@@ -39,7 +39,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Xác nhận</button>
                 </div>
               </form>
             </div>

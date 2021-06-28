@@ -23,16 +23,16 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Tên đơn hàng</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter tên" value="{{old('name',$order->name)}}">
+                    <input type="text" name="name" class="form-control" placeholder="Tên" value="{{old('name',$order->name)}}">
                   </div>
                   <div class="form-group">
                     <label for="name">Tổng giá tiền</label>
-                    <input type="text" name="total_price" class="form-control" placeholder="Enter giá" value="{{old('total_price',$order->total_price)}}">
+                    <input type="text" name="total_price" class="form-control" placeholder="Giá" value="{{old('total_price',$order->total_price)}}">
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Xác nhận</button>
                 </div>
               </form>
             </div>

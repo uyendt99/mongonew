@@ -20,7 +20,16 @@
                <br>
                @endif
                 <h3 class="card-title">Danh sách đơn hàng</h3>
-                <a href="{{ route('order.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
+                <div class="btn-group float-right">
+                    <button type="button" class="btn btn-info">Khác</button>
+                    <button type="button" class="btn btn-info dropdown-toggle dropdown-hover dropdown-icon" data-toggle="dropdown">
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                      <a class="dropdown-item" href="{{ route('export.order') }}">Export</a>
+                      <a class="dropdown-item import_data" data-toggle="modal" data-target="#importOrder">Import</a>
+                  </div>
+                <a href="{{ route('order.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Thêm</a>
               </div>
               <!-- /.card-header -->
               @if(count($orders) > 0)
@@ -39,12 +48,18 @@
                       <td>{{$order->name}}</td>
                       <td>{{$order->total_price}} VNĐ</td>
                       <td>
-                        <a href="{{route('order.edit', $order->id)}}" class="btn btn-warning btn_action"><i style="color:#fff;" class="fas fa-pencil-alt"></i></a>
-                        <form action="{{route('order.delete', $order->id)}}" method="post">
-                            @csrf
-                            <input name="_method" type="hidden" value="DELETE">
-                            <button class="btn btn-danger show_confirm" type="submit"><i class="fas fa-trash-alt"></i></button>
-                        </form>
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                          </button>
+                          <div class="dropdown-menu drop_custom">
+                            <a class="dropdown-item" href="{{route('order.edit', $order->id)}}">Sửa</a>
+                            <form action="{{route('order.delete', $order->id)}}" method="post">
+                              @csrf
+                              <input name="_method" type="hidden" value="DELETE">
+                              <button class="dropdown-item show_confirm btn_action" type="submit">Xóa</button>
+                            </form>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                     @endforeach
@@ -63,5 +78,28 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    
+      <div class="modal fade" id="importOrder" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+                  <!-- Modal Body -->
+            <div class="modal-body">
+                <div>
+                    Import Order
+                </div>
+                <form action="{{ route('import.order') }}" id="import" class="form_validate" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file" class="form-control">
+                    @if ($errors->any())
+                            <ul style="margin-bottom: 0px;">
+                                @foreach ($errors->all() as $error)
+                                    <li class="text-danger">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                    @endif
+                    <br>
+                    <button class="btn btn-success">Import</button>
+                </form> 
+            </div>
+        </div>
+    </div>
 @endsection

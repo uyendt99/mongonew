@@ -31,21 +31,21 @@
                   </div>
                   <div class="form-group">
                     <label for="name">Tên đăng nhập</label>
-                    <input type="text" name="username" class="form-control" placeholder="Enter tên đăng nhập">
+                    <input type="text" name="username" class="form-control" placeholder="Tên đăng nhập">
                     @if( $errors->has('username'))
                     <span class="text-danger">{{ $errors->first('username') }}</span>
                     @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Email</label>
-                    <input type="text" name="email" class="form-control" placeholder="Enter email">
+                    <input type="text" name="email" class="form-control" placeholder="Email">
                     @if( $errors->has('email'))
                     <span class="text-danger">{{ $errors->first('email') }}</span>
                     @endif
                   </div>
                   <div class="form-group">
                     <label for="name">Password</label>
-                    <input type="text" name="password" class="form-control" placeholder="Enter password">
+                    <input type="text" name="password" class="form-control" placeholder="Password">
                     @if( $errors->has('password'))
                     <span class="text-danger">{{ $errors->first('password') }}</span>
                     @endif
@@ -64,7 +64,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Lưu lại</button>
                 </div>
               </form>
             </div>
