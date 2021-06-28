@@ -46,7 +46,7 @@
                     <label for="name">Vai trò</label>
                     <select multiple="multiple" name="role_ids[]" id="user-select" class="form-control multiple_select">
                         @foreach($roles as $role)
-                            <option value="{{$role->id}}" {{in_array($role->id, $user->role_ids) ? "selected" : ''}}>{{$role->name}}</option>
+                            <option value="{{$role->id}}" @if(isset($user->role_ids)) {{in_array($role->id, $user->role_ids) ? "selected" : ''}} @endif>{{$role->name}}</option>
                         @endforeach
                     </select>
                     @if( $errors->has('role_ids'))

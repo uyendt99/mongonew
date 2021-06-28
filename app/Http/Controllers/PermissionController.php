@@ -12,7 +12,7 @@ class PermissionController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         $permissions = Permission::orderBy('created_at', 'desc')->paginate(5);
@@ -44,8 +44,8 @@ class PermissionController extends Controller
         $permission = Permission::findOrFail($id);
         $permission->name = $request->get('name');
         $permission->display_name = $request->get('display_name');
-        $role->update();
-        
+        $permission->update();
+
         return redirect('/permission')->with('success',"Cập nhật thông tin quyền thành công");
     }
 

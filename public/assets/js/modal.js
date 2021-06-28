@@ -21,33 +21,33 @@ jQuery.validator.addMethod('valid_phone', function (value) {
     return value.trim().match(regex);
   });
 
-//   $(document).ready(function(){
+  $(document).ready(function(){
 
-//     fetch_customer_data();
-   
-//     function fetch_customer_data(query = '')
-//     {
-//      $.ajax({
-//         headers: {
-//             'X-CSRF-TOKEN': '<?php echo csrf_token() ?>'
-//             },
-//       url:"{{ route('customer.action') }}",
-//       method:'POST',
-//       data:{query:query},
-//       dataType:'json',
-//       success:function(data)
-//       {
-//           console.log('e');
-//        $('tbody').html(data.table_data);
-//       }
-//      })
-//     }
-   
-//     $(document).on('keyup', '#search', function(){
-//      var query = $(this).val();
-//      fetch_customer_data(query);
-//     });
-//    });
+    fetch_customer_data();
+
+    function fetch_customer_data(query = '')
+    {
+     $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': '<?php echo csrf_token() ?>'
+            },
+      url:"{{ route('customer.action') }}",
+      method:'POST',
+      data:{query:query},
+      dataType:'json',
+      success:function(data)
+      {
+          console.log('e');
+       $('tbody').html(data.table_data);
+      }
+     })
+    }
+
+    $(document).on('keyup', '#search', function(){
+     var query = $(this).val();
+     fetch_customer_data(query);
+    });
+   });
 
 if ($("#createOrder").length > 0) {
     $("#createOrder").validate({
@@ -74,7 +74,7 @@ if ($("#createOrder").length > 0) {
 
         },
     })
-} 
+}
 if ($("#updateOrder").length > 0) {
     $("#updateOrder").validate({
 
@@ -100,7 +100,7 @@ if ($("#updateOrder").length > 0) {
 
         },
     })
-} 
+}
 if ($("#createCustomer").length > 0){
     $("#createCustomer").validate({
         rules: {
@@ -180,14 +180,14 @@ if ($("#createCustomer").length > 0){
             }
 
         },
-        errorPlacement: function(error, element) 
+        errorPlacement: function(error, element)
         {
-            if ( element.is(":radio") ) 
+            if ( element.is(":radio") )
             {
                 error.appendTo( element.parents('.radio_gender') );
             }
-            else 
-            { // This is the default behavior 
+            else
+            { // This is the default behavior
                 error.insertAfter( element );
             }
          }
@@ -267,14 +267,14 @@ if ($("#updateCustomer").length > 0){
             }
 
         },
-        errorPlacement: function(error, element) 
+        errorPlacement: function(error, element)
         {
-            if ( element.is(":radio") ) 
+            if ( element.is(":radio") )
             {
                 error.appendTo( element.parents('.radio_gender') );
             }
-            else 
-            { // This is the default behavior 
+            else
+            { // This is the default behavior
                 error.insertAfter( element );
             }
          }
@@ -380,7 +380,7 @@ if ($("#createRole").length > 0) {
 
         },
     })
-} 
+}
 if ($("#updateRole").length > 0) {
     $("#updateRole").validate({
 
@@ -406,7 +406,7 @@ if ($("#updateRole").length > 0) {
 
         },
     })
-} 
+}
 if ($("#createPermission").length > 0) {
     $("#createPermission").validate({
 
@@ -432,7 +432,7 @@ if ($("#createPermission").length > 0) {
 
         },
     })
-} 
+}
 if ($("#updatePermission").length > 0) {
     $("#updatePermission").validate({
 
@@ -570,7 +570,7 @@ if ($("#import").length > 0) {
 
         },
     })
-} 
+}
 if ($("#createCompany").length > 0) {
     $("#createCompany").validate({
 
@@ -588,7 +588,7 @@ if ($("#createCompany").length > 0) {
 
         },
     })
-} 
+}
 if ($("#updateCompany").length > 0) {
     $("#updateCompany").validate({
 
@@ -606,4 +606,4 @@ if ($("#updateCompany").length > 0) {
 
         },
     })
-} 
+}

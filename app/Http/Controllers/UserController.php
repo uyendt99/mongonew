@@ -50,16 +50,15 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($id);
+
         $user = User::findOrFail($id);
         $user->name = $request->get('name');
         $user->username = $request->get('username');
         $user->email = $request->get('email');
-        
         $user->roles()->detach($user->role_ids);
         $user->roles()->attach($request->get('role_ids'));
         $user->update();
-        
+
         return redirect('/user')->with('success',"Cập nhật thông tin tài khoản thành công");
     }
     public function destroy($id)
