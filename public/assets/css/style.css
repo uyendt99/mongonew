@@ -38,3 +38,32 @@
 .error_req{
     color: red;
 }
+.dataTables_paginate{
+    display: flex;
+    float: right;
+}
+.dataTables_paginate #example1_previous,#example1_next{
+    display: none;
+}
+.dataTables_paginate .paginate_button{
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.dataTables_paginate span{
+    display: flex;
+}
+.paginate_button.current {
+    z-index: 3;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.paginate_button{
+    cursor: pointer;
+}

@@ -41,6 +41,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function() {
     Route::get('/edit/{id}','CustomerController@edit')->name('customer.edit')->middleware('permission:edit_customer');
     Route::post('/edit/{id}','CustomerController@update')->name('customer.update');
     Route::delete('/{id?}','CustomerController@destroy')->name('customer.delete')->middleware('permission:delete_customer');
+    Route::delete('delall', 'CustomerController@deleteAll')->name('customer.deleteAll')->middleware('permission:delete_customer_all');
     Route::get('/show/{id}','CustomerController@show')->name('customer.show');
     Route::get('/export', 'CustomerController@export')->name('export.customer')->middleware('permission:export_customer');
     Route::post('/import', 'CustomerController@import')->name('import.customer')->middleware('permission:import_customer');

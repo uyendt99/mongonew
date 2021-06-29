@@ -21,33 +21,6 @@ jQuery.validator.addMethod('valid_phone', function (value) {
     return value.trim().match(regex);
   });
 
-  $(document).ready(function(){
-
-    fetch_customer_data();
-
-    function fetch_customer_data(query = '')
-    {
-     $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': '<?php echo csrf_token() ?>'
-            },
-      url:"{{ route('customer.action') }}",
-      method:'POST',
-      data:{query:query},
-      dataType:'json',
-      success:function(data)
-      {
-          console.log('e');
-       $('tbody').html(data.table_data);
-      }
-     })
-    }
-
-    $(document).on('keyup', '#search', function(){
-     var query = $(this).val();
-     fetch_customer_data(query);
-    });
-   });
 
 if ($("#createOrder").length > 0) {
     $("#createOrder").validate({
@@ -607,3 +580,20 @@ if ($("#updateCompany").length > 0) {
         },
     })
 }
+
+$(document).ready(function(){
+    $('#example1').DataTable({
+        "ordering": false,
+        "bInfo": false,
+        "oLanguage": {
+            "sLengthMenu": "Hiển thị _MENU_ bản ghi",
+            "sSearch": "Tìm kiếm:"
+        }
+    });
+        
+    $( "input[type=search]" ).addClass("form-control form-control-sm");
+});
+
+$("#checkAll").click(function () {
+    $('input:checkbox').not(this).prop('checked', this.checked);
+});

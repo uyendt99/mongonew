@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Models\Order;
 use App\Exports\CustomersExport;
 use App\Imports\CustomersImport;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\CustomerRequest;
 use Auth;
@@ -29,9 +28,9 @@ class CustomerController extends Controller
                 if($per->name == 'read_customer_for_user'){
                     $customers = Customer::with('company')->whereHas('users', function($q){
                         $q->where('_id', Auth::user()->id);
-                    })->orderBy('created_at', 'desc')->paginate(5);
+                    })->orderBy('created_at', 'desc')->get();
                 }else{
-                    $customers = Customer::with('company')->orderBy('created_at', 'desc')->paginate(5);
+                    $customers = Customer::with('company')->orderBy('created_at', 'desc')->get();
                 }
             }
             
@@ -39,81 +38,6 @@ class CustomerController extends Controller
         
         return view('pages.customer.index',compact('customers'));
     }
-
-    public function test()
-    {
-        foreach(Auth::user()->roles as $role){
-            foreach($role->permissions as $per){
-                if($per->name == 'read_customer_for_user'){
-                    $customers = Customer::with('company')->whereHas('users', function($q){
-                        $q->where('_id', Auth::user()->id);
-                    })->orderBy('created_at', 'desc')->paginate(5);
-                }else{
-                    $customers = Customer::with('company')->orderBy('created_at', 'desc')->paginate(5);
-                }
-            }
-            
-        }
-        
-        return view('pages.customer.importExport',compact('customers'));
-    }
-
-    function action(Request $request)
-    {
-     if($request->ajax())
-     {
-      $output = '';
-      $query = $request->get('query');
-      if($query != '')
-      {
-       $data = Customer::where('name', 'like', '%'.$query.'%')
-         ->orWhere('email', 'like', '%'.$query.'%')
-         ->orWhere('phone', 'like', '%'.$query.'%')
-         ->orderBy('created_at', 'desc')
-         ->paginate(5);
-      }
-      else
-      {
-       $data = Customer::orderBy('created_at', 'desc')->get();
-      }
-      $total_row = $data->count();
-      if($total_row > 0)
-      {
-       foreach($data as $row)
-       {
-        $output .= '
-        <tr>
-         <td>'.$row->name.'</td>
-         <td>'.$row->age.'</td>
-         <td>'.$row->gender.'</td>
-         <td>'.$row->phone.'</td>
-         <td>'.$row->email.'</td>
-         <td>'.$row->address.'</td>
-         <td>'.$row->classify.'</td>
-         <td>'.$row->company->name.'</td>
-         <td>'.$row->job.'</td>
-         <td>'.$row->user_ids.'</td>
-        </tr>
-        ';
-       }
-      }
-      else
-      {
-       $output = '
-       <tr>
-        <td align="center" colspan="11">No Data Found</td>
-       </tr>
-       ';
-      }
-      $data = array(
-       'table_data'  => $output,
-       'total_data'  => $total_row
-      );
-
-      echo json_encode($data);
-     }
-    }
-
     public function create()
     {
         $companies = Company::all();
@@ -191,9 +115,12 @@ class CustomerController extends Controller
         return redirect('/customer')->with('success',"Xóa khách hàng thành công");
     }
 
-    public function importExportView()
+    public function deleteAll(Request $request)
     {
-       return view('pages.customer.importExport');
+        $ids = $request->ids;
+        dd($ids);
+        Customer::whereIn('id',explode(",",$ids))->delete();
+        return response()->json(['success'=>"Products Deleted successfully."]);
     }
 
     public function export()
