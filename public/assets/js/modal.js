@@ -594,6 +594,4 @@ $(document).ready(function(){
     $( "input[type=search]" ).addClass("form-control form-control-sm");
 });
 
-$("#checkAll").click(function () {
-    $('input:checkbox').not(this).prop('checked', this.checked);
-});
+

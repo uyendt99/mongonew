@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+Danh sách đơn hàng
+@endsection
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-left">
   <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>

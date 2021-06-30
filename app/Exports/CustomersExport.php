@@ -3,9 +3,6 @@
 namespace App\Exports;
 
 use App\Models\Customer;
-use App\Models\User;
-use App\Models\Order;
-use App\Model\Company;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -15,9 +12,17 @@ class CustomersExport implements FromCollection, WithHeadings
     /**
     * @return \Illuminate\Support\Collection
     */
+    protected $idsArr;
     public function collection()
-    {
-        $customers = Customer::with('company')->get();
+    {   
+        
+        if(isset($idsArr)){
+            $customers = Customer::with('company')->whereIn('_id', $idsArr)->get();
+            dd($customers);
+        }else{
+            $customers = Customer::with('company')->get();
+        }
+        
         $data = [];
         foreach ($customers as $customer) {
             $data[] = [

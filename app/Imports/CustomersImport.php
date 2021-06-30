@@ -23,7 +23,7 @@ class CustomersImport implements ToModel,WithStartRow,WithValidation
     */
     public function model(array $row)
     {
-        $company = Company::where('name','like',$row['5'])->get()->toArray();
+        $company = Company::where('name','like',$row[5])->get()->toArray();
         foreach($company as $com){
             $company_id = $com['_id'];
         }

@@ -118,14 +118,19 @@ class CustomerController extends Controller
     public function deleteAll(Request $request)
     {
         $ids = $request->ids;
-        dd($ids);
-        Customer::whereIn('id',explode(",",$ids))->delete();
-        return response()->json(['success'=>"Products Deleted successfully."]);
+        Customer::whereIn('_id',explode(",",$ids))->delete();
+        return response()->json(['status'=>true,'message'=>"Xóa thành công."]);
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new CustomersExport, 'customers.xlsx');
+        $ids = $request->ids;
+        $idsArr = explode(",",$ids);
+        if(isset($ids)){
+           $export =  Excel::download(new CustomersExport($idsArr), 'customers.xlsx');
+        }else{
+            return Excel::download(new CustomersExport, 'customers.xlsx');
+        }
     }
 
     public function import(ImportRequest $request)

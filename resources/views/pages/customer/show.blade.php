@@ -17,7 +17,7 @@
                 <h3 class="card-title">Thông tin khách hàng {{$customer->name}}</h3>
               </div>
               <!-- Main content -->
-                <div class="invoice p-3 mb-3">
+                <div class="invoice p-3">
                     <!-- info row -->
                     <div class="row invoice-info">
                         <div class="col-sm-12 invoice-col">
@@ -73,8 +73,8 @@
               {{ $orders->links('pagination::bootstrap-4') }}
               </div>
               @else
-              <div>
-                <p style="text-align: center;">Không có dữ liệu</p>
+              <div style="text-align: center;padding: 5px 0;">
+                <span style="text-align: center;">Không có dữ liệu</span>
               </div>
               @endif
             </div>

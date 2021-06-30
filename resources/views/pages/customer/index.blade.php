@@ -29,9 +29,9 @@ Danh sách khách hàng
               <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div class="dropdown-menu" role="menu">
-              <a class="dropdown-item" href="{{ route('export.customer') }}">Export</a>
+              <button id="export" class="dropdown-item export-checkbox">Export</button>
               <button class="dropdown-item import_data" data-toggle="modal" data-target="#importCustomer">Import</button>
-              <button class="dropdown-item" data-toggle="modal" data-target="#deleteAllCustomer">Xóa các bản ghi</button>
+              <button class="dropdown-item delete-all" data-url="">Xóa các bản ghi</button>
             </div>
             <a href="{{ route('customer.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Thêm</a>
           </div>
@@ -45,7 +45,7 @@ Danh sách khách hàng
                 <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
                   <thead>
                     <tr role="row">
-                      <th><input type="checkbox" id="checkAll"></th>
+                      <th><input type="checkbox" id="check_all"></th>
                       <th>Tên</th>
                       <th>Tuổi</th>
                       <th>Giới tính</th>
@@ -60,10 +60,9 @@ Danh sách khách hàng
                     </tr>
                   </thead>
                   <tbody>
-
                     @foreach($customers as $rs)
-                    <tr>
-                      <td><input type="checkbox" name="customer_ids[]" value="{{$rs->id}}"></td>
+                    <tr id="tr_{{$rs->id}}">
+                      <td><input type="checkbox" name="customer_id[]" class="checkbox" data-id="{{$rs->id}}"></td>
                       <td>{{$rs->name}}</td>
                       <td>{{$rs->age}}</td>
                       <td>@if($rs->gender == 1) Nữ @elseif($rs->gender == 0) Nam @else Khác @endif</td>
@@ -96,13 +95,6 @@ Danh sách khách hàng
                             <a class="dropdown-item" href="{{route('customer.show', $rs->id)}}">Chi tiết</a>
                           </div>
                         </div>
-                        <!-- <a href="{{route('customer.edit', $rs->id)}}" class="btn btn-warning btn_action"><i style="color:#fff;" class="fas fa-pencil-alt"></i></a>
-                              <form action="{{route('customer.delete', $rs->id)}}" method="post">
-                                  @csrf
-                                  <input name="_method" type="hidden" value="DELETE">
-                                  <button class="btn btn-danger show_confirm btn_action" type="submit"><i class="fas fa-trash-alt"></i></button>
-                              </form>
-                              <a href="{{route('customer.show', $rs->id)}}" class="btn btn-success"><i class="far fa-eye"></i></a> -->
                       </td>
                     </tr>
                     @endforeach
@@ -113,7 +105,6 @@ Danh sách khách hàng
                 </table>
               </div>
             </div>
-
             @else
             <div>
               <p style="text-align: center;">Không có dữ liệu</p>
@@ -132,7 +123,7 @@ Danh sách khách hàng
       <!-- Modal Body -->
       <div class="modal-body">
         <div>
-          Import Order
+          Import Khách hàng
         </div>
         <form action="{{ route('import.customer') }}" id="import" class="form_validate" method="POST" enctype="multipart/form-data">
           @csrf
@@ -151,28 +142,103 @@ Danh sách khách hàng
     </div>
   </div>
 </div>
-<div class="modal" tabindex="-1" role="dialog" id="deleteAllCustomer">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Dữ liệu</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Nhập xác nhận:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Xác nhận</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-confirmation/1.0.5/bootstrap-confirmation.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+        $('#check_all').on('click', function(e) {
+         if($(this).is(':checked',true))  
+         {
+            $(".checkbox").prop('checked', true);  
+            //$( "#export" ).addClass("export-checkbox");
+         } else {  
+            $(".checkbox").prop('checked',false); 
+            //$( "#export" ).removeClass("export-checkbox"); 
+         } 
+         
+         
+        });
+         $('.checkbox').on('click',function(){
+            if($('.checkbox:checked').length == $('.checkbox').length){
+                $('#check_all').prop('checked',true);
+            }else{
+                $('#check_all').prop('checked',false);
+            }
+         });
+        $('.delete-all').on('click', function(e) {
+            var idsArr = [];  
+            $(".checkbox:checked").each(function() {  
+                idsArr.push($(this).attr('data-id'));
+            });  
+            
+            if(idsArr.length <=0)  
+            {  
+                alert("Vui lòng chọn bản ghi bạn muốn xóa");  
+            }  else {  
+              var idss = idsArr.length;
+                if(confirm('Bạn có chắc chắn muốn xóa ' +idss+' bản ghi đã chọn?')){  
+                    var strIds = idsArr.join(",");
+                    $.ajax({
+                        url: "{{route('customer.deleteAll')}}",
+                        type: 'POST',
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: 'ids='+strIds,
+                        success: function (data) {
+                          console.log(data);
+                            if (data['status']==true) {
+                                $(".checkbox:checked").each(function() {  
+                                    $(this).parents("tr").remove();
+                                });
+                                alert(data['message']);
+                            } else {
+                                alert('Lỗi!!');
+                            }
+                        },
+                        error: function (data) {
+                          console.log(data);
+                            //alert(data.responseText);
+                        }
+                    });
+                }  
+            }  
+        });
+        $('.export-checkbox').on('click', function(e) {
+            var idsArr = [];  
+            $(".checkbox:checked").each(function() {  
+                idsArr.push($(this).attr('data-id'));
+            });  
+              
+              var idss = idsArr.length;
+                if(confirm('Bạn đồng ý xuất ' +idss+' bản ghi đã chọn?')){  
+                    var strIds = idsArr.join(",");
+                    $.ajax({
+                        url: "{{route('export.customer')}}",
+                        type: 'GET',
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        data: 'ids='+strIds,
+                        success: function (data) {
+                            // if (data['status']==true) {
+                            //     alert(data['message']);
+                            // } else {
+                            //     alert('Lỗi!!');
+                            // }
+                            console.log(data);
+                        },
+                        error: function (data) {
+                          console.log(data);
+                            //alert(data.responseText);
+                        }
+                    });
+                }  
+        });
+        // $('[data-toggle=confirmation]').confirmation({
+        //     rootSelector: '[data-toggle=confirmation]',
+        //     onConfirm: function (event, element) {
+        //         element.closest('form').submit();
+        //     }
+        // });   
+    
+    });
+</script>
 @endsection
