@@ -585,12 +585,13 @@ $(document).ready(function(){
     $('#example1').DataTable({
         "ordering": false,
         "bInfo": false,
+        "paging": false,
         "oLanguage": {
             "sLengthMenu": "Hiển thị _MENU_ bản ghi",
             "sSearch": "Tìm kiếm:"
         }
     });
-        
+
     $( "input[type=search]" ).addClass("form-control form-control-sm");
 });
 

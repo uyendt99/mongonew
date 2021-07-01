@@ -9,21 +9,21 @@
     float:left;
     margin-right: 10px;
 }
-.progress { 
-    position:relative; 
-    width:100%;     
+.progress {
+    position:relative;
+    width:100%;
     margin-top: 10px;
     line-height: normal;
 }
-.bar { 
-    background-color:green; 
-    width:0%; 
-    height:20px; 
+.bar {
+    background-color:green;
+    width:0%;
+    height:20px;
 }
 .percent {
-     position:absolute; 
-     display:inline-block; 
-     left:50%; 
+     position:absolute;
+     display:inline-block;
+     left:50%;
      color: #040608;
 }
 .form_delete{
@@ -66,4 +66,24 @@
 }
 .paginate_button{
     cursor: pointer;
+}
+#example1 th{
+    text-align: center !important;
+    padding-right: 10px !important;
+}
+.error_permission{
+    height: 600px;
+    position: relative;
+}
+.error_permission .error_detail{
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    text-align: center;
+    line-height: 50px;
+    width: 50%;
+}
+.error_detail i{
+    color: red;
+    font-size: 100px;
 }

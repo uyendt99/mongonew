@@ -3,18 +3,23 @@
 namespace App\Exports;
 
 use App\Models\Customer;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class CustomersExport implements FromCollection, WithHeadings
+class CustomersExportCheck implements FromCollection
 {
     /**
     * @return \Illuminate\Support\Collection
     */
+    protected $idsArr;
+
+    public function __construct($idsArr)
+    {
+        $this->idsArr = $idsArr;
+    }
     public function collection()
     {
-        $customers = Customer::with('company')->get();
+        $ids = $this->idsArr;
+        $customers = Customer::with('company')->whereIn('_id',$ids)->get();
         $data = [];
         foreach ($customers as $customer) {
             $data[] = [
@@ -27,9 +32,9 @@ class CustomersExport implements FromCollection, WithHeadings
                 $customer->job,
                 implode(',', $customer->users->pluck('name')->toArray()),
                 implode(',', $customer->orders->pluck('name')->toArray()),
-
             ];
         }
+
         return collect($data);
     }
     public function headings(): array

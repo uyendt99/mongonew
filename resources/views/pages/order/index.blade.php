@@ -76,6 +76,9 @@ Danh sách đơn hàng
 
                   </tfoot>
                 </table>
+                <div>
+                {{ $orders->links('pagination::bootstrap-4') }}
+                </div>
               </div>
             </div>
             @else

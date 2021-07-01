@@ -19,7 +19,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Order::orderBy('created_at', 'desc')->get();
+        $orders = Order::orderBy('created_at', 'desc')->paginate(30);
         return view('pages.order.index',compact('orders'));
     }
 
@@ -62,15 +62,15 @@ class OrderController extends Controller
     {
        return view('pages.order.importExport');
     }
-     
-    public function export() 
+
+    public function export()
     {
         return Excel::download(new OrdersExport, 'orders.xlsx');
     }
-     
-    public function import(ImportRequest $request) 
+
+    public function import(ImportRequest $request)
     {
-       $import = Excel::import(new OrdersImport,request()->file('file'));
+       //$import = Excel::import(new OrdersImport,request()->file('file'));
        $import = new OrdersImport;
         Excel::import($import, request()->file('file'));
         if(isset($import)){
@@ -78,6 +78,6 @@ class OrderController extends Controller
         }else{
             return back()->with('error','Import thất bại');
         }
-        
+
     }
 }

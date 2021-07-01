@@ -8,7 +8,7 @@
         @if(Auth::check())
           <a href="#" class="d-block">{{Auth::user()->name}}</a><span style="color:#fff; padding: 0 10px;"> | </span><a href="{{route('logout')}}">Đăng xuất</a>
         @endif
-        
+
         </div>
       </div>
 
@@ -30,73 +30,28 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link ">
+            <a href="{{route('customer')}}" class="nav-link ">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Quản lý khách hàng
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('customer')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Danh sách</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('customer.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Thêm</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('order')}}" class="nav-link">
               <i class="nav-icon fas fa-address-book"></i>
               <p>
                 Quản lý đơn hàng
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('order')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Danh sách</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('order.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Thêm</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('company')}}" class="nav-link">
               <i class="nav-icon fas fa-building"></i>
               <p>
                 Quản lý công ty
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('company')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Danh sách</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('company.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Thêm</p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
             <a href="{{route('user')}}" class="nav-link">
@@ -105,20 +60,6 @@
                 Quản lý tài khoản
               </p>
             </a>
-            <!-- <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('user')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Danh sách</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('user.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Thêm</p>
-                </a>
-              </li>
-            </ul> -->
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">

@@ -59,7 +59,7 @@
                     <label for="name">Phân loại</label>
                     <select class="form-control multiple_select" id="classify-select" multiple="multiple" name="classify[]" id="">
                         @foreach($classifys as $item)
-                        <option value="{{$item}}" {{in_array($item, $customer->classify) ? "selected" : ''}} >{{$item}}</option>
+                        <option value="{{$item}}" @if(isset($customer->classify)) {{in_array($item, $customer->classify) ? "selected" : ''}} @endif >{{$item}}</option>
                         @endforeach
                     </select>
                   </div>
@@ -68,7 +68,7 @@
                         <select class="form-control" name="company_id" id="">
                             <option value="">Chọn nơi làm việc</option>
                             @foreach($companies as $com)
-                                <option value="{{$com->id}}" {{($customer->company_id === $com->id) ? 'Selected' : ''}}>{{$com->name}}</option>
+                                <option value="{{$com->id}}" @if(isset($customer->company_id)) {{($customer->company_id === $com->id) ? 'Selected' : ''}} @endif>{{$com->name}}</option>
                             @endforeach
                         </select>
                   </div>
@@ -80,7 +80,7 @@
                     <label for="name">Nhân viên chăm sóc</label>
                     <select multiple="multiple" name="user_ids[]" id="user-select" class="form-control multiple_select">
                         @foreach($users as $user)
-                            <option value="{{$user->id}}" {{in_array($user->id, $customer->user_ids) ? "selected" : ''}} >{{$user->name}}</option>
+                            <option value="{{$user->id}}" @if(isset($customer->user_ids)) {{in_array($user->id, $customer->user_ids) ? "selected" : ''}} @endif >{{$user->name}}</option>
                         @endforeach
                     </select>
                   </div>
@@ -88,7 +88,7 @@
                     <label for="name">Đơn hàng</label>
                     <select multiple="multiple" name="order_ids[]" class="form-control multiple_select">
                         @foreach($orders as $order)
-                            <option value="{{$order->id}}" {{in_array($order->id, $customer->order_ids) ? "selected" : ''}}>{{$order->name}}</option>
+                            <option value="{{$order->id}}" @if(isset($customer->order_ids)){{in_array($order->id, $customer->order_ids) ? "selected" : ''}} @endif>{{$order->name}}</option>
                         @endforeach
                     </select>
                   </div>

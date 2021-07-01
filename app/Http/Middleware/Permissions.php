@@ -5,8 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Permission;
 
-class Permission
+class Permissions
 {
     /**
      * Handle an incoming request.
@@ -28,9 +29,11 @@ class Permission
         if (in_array($permissions, $array_permission)){
             return $next($request);
         }else{
-            return redirect('/error')->withMessage('Bạn không có quyền '.$permissions);
+            $permission = Permission::where('name',$permissions)->first()->toArray();
+            $display_name_per = $permission['display_name'];
+            return redirect('/error')->withMessage('Bạn không có quyền '.$display_name_per);
         }
 
-        
+
     }
 }

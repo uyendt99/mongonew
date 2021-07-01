@@ -22,19 +22,29 @@ Danh sách khách hàng
           </div>
           <br>
           @endif
-          <h3 class="card-title">Danh sách khách hàng</h3>
-          <div class="btn-group float-right">
-            <button type="button" class="btn btn-info">Khác</button>
-            <button type="button" class="btn btn-info dropdown-toggle dropdown-hover dropdown-icon" data-toggle="dropdown">
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <div class="dropdown-menu" role="menu">
-              <button id="export" class="dropdown-item export-checkbox">Export</button>
-              <button class="dropdown-item import_data" data-toggle="modal" data-target="#importCustomer">Import</button>
-              <button class="dropdown-item delete-all" data-url="">Xóa các bản ghi</button>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 style="font-weight: 600;" class="card-title">Danh sách khách hàng </h3>
+                    <br>
+                    <p>(Tìm thấy: {{count($customers)}} khách hàng)</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="btn-group float-right">
+                        <button type="button" class="btn btn-info">Khác</button>
+                        <button type="button" class="btn btn-info dropdown-toggle dropdown-hover dropdown-icon" data-toggle="dropdown">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+{{--                            <button id="export" class="dropdown-item export-checkbox">Export</button>--}}
+                            <a class="dropdown-item" href="{{route('export.customer')}}">Export</a>
+                            <button class="dropdown-item import_data" data-toggle="modal" data-target="#importCustomer">Import</button>
+                            <button class="dropdown-item delete-all" data-url="">Xóa các bản ghi</button>
+                        </div>
+                        <a href="{{ route('customer.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Thêm</a>
+                    </div>
+                </div>
             </div>
-            <a href="{{ route('customer.create')}}" id="btn-add" name="btn-add" class="btn btn-primary float-right" style="margin-left:10px;">Thêm</a>
-          </div>
+
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -62,7 +72,7 @@ Danh sách khách hàng
                   <tbody>
                     @foreach($customers as $rs)
                     <tr id="tr_{{$rs->id}}">
-                      <td><input type="checkbox" name="customer_id[]" class="checkbox" data-id="{{$rs->id}}"></td>
+                      <td style="text-align: center;"><input type="checkbox" name="customer_id[]" class="checkbox" data-id="{{$rs->id}}"></td>
                       <td>{{$rs->name}}</td>
                       <td>{{$rs->age}}</td>
                       <td>@if($rs->gender == 1) Nữ @elseif($rs->gender == 0) Nam @else Khác @endif</td>
@@ -103,6 +113,9 @@ Danh sách khách hàng
 
                   </tfoot>
                 </table>
+                <div>
+                {{ $customers->links('pagination::bootstrap-4') }}
+                </div>
               </div>
             </div>
             @else
@@ -146,99 +159,106 @@ Danh sách khách hàng
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-confirmation/1.0.5/bootstrap-confirmation.min.js"></script>
 <script type="text/javascript">
-  $(document).ready(function () {
-        $('#check_all').on('click', function(e) {
-         if($(this).is(':checked',true))  
-         {
-            $(".checkbox").prop('checked', true);  
-            //$( "#export" ).addClass("export-checkbox");
-         } else {  
-            $(".checkbox").prop('checked',false); 
-            //$( "#export" ).removeClass("export-checkbox"); 
-         } 
-         
-         
-        });
-         $('.checkbox').on('click',function(){
-            if($('.checkbox:checked').length == $('.checkbox').length){
-                $('#check_all').prop('checked',true);
-            }else{
-                $('#check_all').prop('checked',false);
-            }
-         });
-        $('.delete-all').on('click', function(e) {
-            var idsArr = [];  
-            $(".checkbox:checked").each(function() {  
-                idsArr.push($(this).attr('data-id'));
-            });  
-            
-            if(idsArr.length <=0)  
-            {  
-                alert("Vui lòng chọn bản ghi bạn muốn xóa");  
-            }  else {  
-              var idss = idsArr.length;
-                if(confirm('Bạn có chắc chắn muốn xóa ' +idss+' bản ghi đã chọn?')){  
-                    var strIds = idsArr.join(",");
-                    $.ajax({
-                        url: "{{route('customer.deleteAll')}}",
-                        type: 'POST',
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        data: 'ids='+strIds,
-                        success: function (data) {
-                          console.log(data);
-                            if (data['status']==true) {
-                                $(".checkbox:checked").each(function() {  
-                                    $(this).parents("tr").remove();
-                                });
-                                alert(data['message']);
-                            } else {
-                                alert('Lỗi!!');
-                            }
-                        },
-                        error: function (data) {
-                          console.log(data);
-                            //alert(data.responseText);
-                        }
-                    });
-                }  
-            }  
-        });
-        $('.export-checkbox').on('click', function(e) {
-            var idsArr = [];  
-            $(".checkbox:checked").each(function() {  
-                idsArr.push($(this).attr('data-id'));
-            });  
-              
-              var idss = idsArr.length;
-                if(confirm('Bạn đồng ý xuất ' +idss+' bản ghi đã chọn?')){  
-                    var strIds = idsArr.join(",");
-                    $.ajax({
-                        url: "{{route('export.customer')}}",
-                        type: 'GET',
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        data: 'ids='+strIds,
-                        success: function (data) {
-                            // if (data['status']==true) {
-                            //     alert(data['message']);
-                            // } else {
-                            //     alert('Lỗi!!');
-                            // }
-                            console.log(data);
-                        },
-                        error: function (data) {
-                          console.log(data);
-                            //alert(data.responseText);
-                        }
-                    });
-                }  
-        });
-        // $('[data-toggle=confirmation]').confirmation({
-        //     rootSelector: '[data-toggle=confirmation]',
-        //     onConfirm: function (event, element) {
-        //         element.closest('form').submit();
-        //     }
-        // });   
-    
+  $(document).ready(function() {
+    $('#check_all').on('click', function(e) {
+      if ($(this).is(':checked', true)) {
+        $(".checkbox").prop('checked', true);
+        //$( "#export" ).addClass("export-checkbox");
+      } else {
+        $(".checkbox").prop('checked', false);
+        //$( "#export" ).removeClass("export-checkbox");
+      }
+
+
     });
+    $('.checkbox').on('click', function() {
+      if ($('.checkbox:checked').length == $('.checkbox').length) {
+        $('#check_all').prop('checked', true);
+      } else {
+        $('#check_all').prop('checked', false);
+      }
+    });
+    $('.delete-all').on('click', function(e) {
+      var idsArr = [];
+      $(".checkbox:checked").each(function() {
+        idsArr.push($(this).attr('data-id'));
+      });
+
+      if (idsArr.length <= 0) {
+        alert("Vui lòng chọn bản ghi bạn muốn xóa");
+      } else {
+        var idss = idsArr.length;
+        if (confirm('Bạn có chắc chắn muốn xóa ' + idss + ' bản ghi đã chọn?')) {
+          var strIds = idsArr.join(",");
+          $.ajax({
+            url: "{{route('customer.deleteAll')}}",
+            type: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: 'ids=' + strIds,
+            success: function(data) {
+              console.log(data);
+              if (data['status'] == true) {
+                $(".checkbox:checked").each(function() {
+                  $(this).parents("tr").remove();
+                    location.reload();
+                });
+                alert(data['message']);
+              } else {
+                alert('Lỗi!!');
+              }
+
+            },
+            error: function(data) {
+              console.log(data);
+              //alert(data.responseText);
+            }
+          });
+        }
+      }
+    });
+    $('.export-checkbox').on('click', function(e) {
+      var idsArr = [];
+      $(".checkbox:checked").each(function() {
+        idsArr.push($(this).attr('data-id'));
+      });
+        if (idsArr.length <= 0) {
+            alert("Vui lòng chọn bản ghi bạn muốn xuất");
+        } else {
+            var idss = idsArr.length;
+            if (confirm('Bạn đồng ý xuất ' + idss + ' bản ghi đã chọn?')) {
+                var strIds = idsArr.join(",");
+                $.ajax({
+                    url: "{{route('export.customer')}}",
+                    type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: 'ids=' + strIds,
+                    success: function (data) {
+                        // if (data['status']==true) {
+                        //     alert(data['message']);
+                        // } else {
+                        //     alert('Lỗi!!');
+                        // }
+                        // console.log(data);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        //alert(data.responseText);
+                    }
+                });
+            }
+        }
+    });
+    // $('[data-toggle=confirmation]').confirmation({
+    //     rootSelector: '[data-toggle=confirmation]',
+    //     onConfirm: function (event, element) {
+    //         element.closest('form').submit();
+    //     }
+    // });
+
+  });
 </script>
 @endsection

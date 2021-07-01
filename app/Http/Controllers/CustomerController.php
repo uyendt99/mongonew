@@ -8,11 +8,14 @@ use App\Models\Company;
 use App\Models\User;
 use App\Models\Order;
 use App\Exports\CustomersExport;
+use App\Exports\CustomersExportCheck;
 use App\Imports\CustomersImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\CustomerRequest;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ImportRequest;
+
+use function PHPUnit\Framework\isEmpty;
 
 class CustomerController extends Controller
 {
@@ -28,14 +31,13 @@ class CustomerController extends Controller
                 if($per->name == 'read_customer_for_user'){
                     $customers = Customer::with('company')->whereHas('users', function($q){
                         $q->where('_id', Auth::user()->id);
-                    })->orderBy('created_at', 'desc')->get();
+                    })->orderBy('created_at', 'desc')->paginate(30);
                 }else{
-                    $customers = Customer::with('company')->orderBy('created_at', 'desc')->get();
+                    $customers = Customer::with('company')->orderBy('created_at', 'desc')->paginate(30);
                 }
             }
-            
         }
-        
+
         return view('pages.customer.index',compact('customers'));
     }
     public function create()
@@ -105,7 +107,7 @@ class CustomerController extends Controller
         $customer->users()->attach($request->get('user_ids'));
         $customer->orders()->attach($request->get('order_ids'));
         $customer->update();
-        
+
         return redirect('/customer')->with('success',"Cập nhật thông tin khách hàng thành công");
     }
 
@@ -126,10 +128,12 @@ class CustomerController extends Controller
     {
         $ids = $request->ids;
         $idsArr = explode(",",$ids);
-        if(isset($ids)){
-           $export =  Excel::download(new CustomersExport($idsArr), 'customers.xlsx');
-        }else{
+        //dd($idsArr);
+        //dd(empty($idsArr));
+        if(!empty($idsArr)){
             return Excel::download(new CustomersExport, 'customers.xlsx');
+        }else{
+            return Excel::download(new CustomersExportCheck($idsArr), 'customers.xlsx');
         }
     }
 

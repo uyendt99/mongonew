@@ -5,19 +5,20 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
-              @if(Session::has('message'))
-               <div class="alert alert-danger alert-block">
-                  <button type="button" class="close" data-dismiss="alert">×</button>
-                  <strong style="text-algin:center;">{{ Session::get('message') }}</strong>
-               </div>
-               <br>
-               @endif
-              </div>
+                  <div class="error_permission">
+                      @if(Session::has('message'))
+                          <div class="error_detail">
+                              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                              <br>
+                              <p style="text-algin:center;">{{ Session::get('message') }}</p>
+                              <a class="btn btn-info" href="{{route('home')}}">Về trang chủ</a>
+                          </div>
+                      @endif
+                  </div>
               <!-- /.card-header -->
             </div>
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    
+
 @endsection
